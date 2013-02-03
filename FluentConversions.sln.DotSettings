@@ -97,7 +97,7 @@
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_MULTLINE_TYPE_PARAMETER_LIST/@EntryValue">False</s:Boolean>
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/BLANK_LINES_AROUND_SINGLE_LINE_INVOCABLE/@EntryValue">1</s:Int64>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/CASE_BLOCK_BRACES/@EntryValue">NEXT_LINE</s:String>
-	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/EMPTY_BLOCK_STYLE/@EntryValue">TOGETHER_SAME_LINE</s:String>
+	
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/FORCE_ATTRIBUTE_STYLE/@EntryValue">SEPARATE</s:String>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/FORCE_FIXED_BRACES_STYLE/@EntryValue">ALWAYS_ADD</s:String>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/FORCE_FOR_BRACES_STYLE/@EntryValue">ALWAYS_ADD</s:String>
@@ -294,7 +294,6 @@
       &lt;/Match&gt;&#xD;
       &lt;Sort&gt;&#xD;
         &lt;Access Order="public internal protected-internal protected private" /&gt;&#xD;
-        &lt;Name/&gt;&#xD;
       &lt;/Sort&gt;&#xD;
     &lt;/Entry&gt;&#xD;
 &#xD;
@@ -306,7 +305,6 @@
       &lt;Sort&gt;&#xD;
         &lt;Static /&gt;&#xD;
         &lt;Access Order="public internal protected-internal protected private" /&gt;&#xD;
-        &lt;Name/&gt;&#xD;
       &lt;/Sort&gt;&#xD;
     &lt;/Entry&gt;&#xD;
 &#xD;
@@ -319,7 +317,6 @@
       &lt;Sort&gt;&#xD;
         &lt;Static /&gt;&#xD;
         &lt;Access Order="public internal protected-internal protected private" /&gt;&#xD;
-        &lt;Name/&gt;&#xD;
       &lt;/Sort&gt;&#xD;
     &lt;/Entry&gt;&#xD;
 &#xD;
@@ -361,7 +358,8 @@
     &lt;!-- all other members --&gt;&#xD;
     &lt;Entry/&gt;&#xD;
   &lt;/Pattern&gt;&#xD;
-&lt;/Patterns&gt;</s:String>
+&lt;/Patterns&gt;&#xD;
+</s:String>
 	<s:String x:Key="/Default/CodeStyle/CSharpMemberOrderPattern/LayoutType/@EntryValue">CustomLayout</s:String>
 	<s:Boolean x:Key="/Default/CodeStyle/CSharpUsing/AddImportsToDeepestScope/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeStyle/CSharpUsing/KeepImports/=System/@EntryIndexedValue">System</s:String>
