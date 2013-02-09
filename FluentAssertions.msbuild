@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <!-- Default properties -->
+        <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+        <VisualStudioVersion>11.0</VisualStudioVersion>
+        <RunUnitTests>true</RunUnitTests>
+        <CollectCodeCoverage>true</CollectCodeCoverage>
+    </PropertyGroup>
+    <PropertyGroup>
+        <!-- Build Paths -->
+        <SlnFile>$(MSBuildProjectDirectory)\FluentConversions.sln</SlnFile>
+        <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">$(MSBuildProjectDirectory)\Builds</BaseOutputPath>
+        <BinOutputPath Condition="'$(BinOutputPath)' == ''">$(BaseOutputPath)\Deliverables</BinOutputPath>
+        <ReportsRoot>$(BaseOutputPath)\BuildReports</ReportsRoot>
+        <UnitTestResultsDir>$(ReportsRoot)\results-unit-tests</UnitTestResultsDir>
+        <UnitTestReportsDir>$(ReportsRoot)\reports-unit-tests</UnitTestReportsDir>
+        <CoverageResultsDir>$(ReportsRoot)\results-coverage</CoverageResultsDir>
+        <CoverageReportDir>$(ReportsRoot)\reports-coverage</CoverageReportDir>
+        <NugetPackageOutputDir>$(BaseOutputPath)\Package</NugetPackageOutputDir>
+    </PropertyGroup>
+    <PropertyGroup>
+        <!-- Tools Paths -->
+        <XunitPath>$(MSBuildProjectDirectory)\packages\xunit.runners.1.9.1\tools</XunitPath>
+        <DotCoverPath>C:\Program Files (x86)\JetBrains\dotCover\v2.2\bin</DotCoverPath>
+        <DotCoverFilters>+:FluentConversions</DotCoverFilters>
+        <NugetPath>$(MSBuildProjectDirectory)\.nuget</NugetPath>
+    </PropertyGroup>
+    <UsingTask AssemblyFile="$(XunitPath)\xunit.runner.msbuild.dll" TaskName="xunit"/>
+    <!-- Public targets - to be referred to by the build caller. -->
+    <Target DependsOnTargets="_CleanCore" Name="Clean"/>
+    <Target DependsOnTargets="_CleanCore;_DebugConfiguration;_BuildCore;_UnitTests;_CodeCoverage;_Package" Name="Build" />
+    <Target DependsOnTargets="_CleanCore;_ReleaseConfiguration;_BuildCore;_UnitTests;_CodeCoverage;_Package" Name="Release" />
+    <Target DependsOnTargets="_Package" Name="Package" />
+    <Target DependsOnTargets="_Package;_Deploy" Name="Deploy" />
+    <Target Name="SkipUnitTests">
+        <PropertyGroup>
+            <RunUnitTests>false</RunUnitTests>
+            <CollectCodeCoverage>false</CollectCodeCoverage>
+        </PropertyGroup>
+    </Target>
+    <Target Name="SkipCoverage">
+        <PropertyGroup>
+            <CollectCodeCoverage>false</CollectCodeCoverage>
+        </PropertyGroup>
+    </Target>
+    <!-- Internal targets - used by the above to perform the requested build. -->
+    <Target Name="_DebugConfiguration">
+        <PropertyGroup>
+            <Configuration>Debug</Configuration>
+        </PropertyGroup>
+    </Target>
+    <Target Name="_ReleaseConfiguration">
+        <PropertyGroup>
+            <Configuration>Release</Configuration>            
+        </PropertyGroup>
+    </Target>
+    <Target Name="_CleanCore">
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Cleaning"/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>        
+        <MakeDir Condition="!Exists('$(BaseOutputPath)')" Directories="$(BaseOutputPath)"/>
+        <MSBuild Projects="$(SlnFile)" Properties="Configuration=Debug" Targets="clean"/>
+        <MSBuild Projects="$(SlnFile)" Properties="Configuration=Release" Targets="clean"/>
+        <ItemGroup>
+            <FilesToDelete Include="$(BaseOutputPath)\**\*"/>
+        </ItemGroup>
+        <Delete Files="@(FilesToDelete)"/>
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Finished Cleaning"/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+    </Target>
+    <Target Name="_BuildCore">
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Building ($(Configuration))..."/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+        <MakeDir Condition="!Exists('$(BaseOutputPath)')" Directories="$(BaseOutputPath)"/>
+        <MakeDir Condition="!Exists('$(BinOutputPath)')" Directories="$(BinOutputPath)"/>
+        <!-- Clean, then rebuild entire solution -->
+        <MSBuild Projects="$(SlnFile)" Properties="Configuration=$(Configuration);OutDir=$(BinOutputPath)" Targets="rebuild"/>
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Finished Build ($(Configuration))"/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+    </Target>
+    <Target Condition="$(RunUnitTests) == 'true' AND $(CollectCodeCoverage) == 'false'" DependsOnTargets="_BuildCore" Name="_UnitTests">
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Running Unit Tests"/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+        <MakeDir Condition="!Exists('$(UnitTestResultsDir)')" Directories="$(UnitTestResultsDir)"/>        
+        <MakeDir Condition="!Exists('$(UnitTestReportsDir)')" Directories="$(UnitTestReportsDir)"/>        
+        <xunit Assembly="$(BinOutputPath)\FluentConversions.Tests.dll" ShadowCopy="false" WorkingFolder="$(BinOutputPath)" Xml="$(UnitTestResultsDir)\unit-tests-report.xml" Html="$(UnitTestReportsDir)\unit-tests-report.html" />
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Finished Unit Tests"/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+    </Target>
+    <Target Condition="$(RunUnitTests) == 'true' AND $(CollectCodeCoverage) == 'true'" DependsOnTargets="_BuildCore" Name="_CodeCoverage">
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Running Unit Tests with Coverage "/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+        <MakeDir Condition="!Exists('$(UnitTestResultsDir)')" Directories="$(UnitTestResultsDir)"/>
+        <MakeDir Condition="!Exists('$(UnitTestReportsDir)')" Directories="$(UnitTestReportsDir)"/>
+        <MakeDir Condition="!Exists('$(CoverageResultsDir)')" Directories="$(CoverageResultsDir)"/>
+        <MakeDir Condition="!Exists('$(CoverageReportDir)')" Directories="$(CoverageReportDir)"/>
+        <Message Text="Running dotCover" />
+        <Exec Command="&quot;$(DotCoverPath)\dotCover.exe&quot; cover &quot;/TargetExecutable:$(XunitPath)\xunit.console.clr4.exe&quot; &quot;/TargetArguments=$(BinOutputPath)\FluentConversions.Tests.dll /silent /noshadow /xml $(UnitTestResultsDir)\unit-tests-report.xml /html $(UnitTestReportsDir)\unit-tests-report.html&quot; &quot;/TargetWorkingDir=$(BinOutputPath)&quot; &quot;/Output=$(CoverageResultsDir)\FluentConversions.cover&quot; &quot;/Filters=$(DotCoverFilters)&quot;"/>
+        <Message Text="Creating XML coverage report" />
+        <Exec Command="&quot;$(DotCoverPath)\dotCover.exe&quot; report &quot;/Source:$(CoverageResultsDir)\FluentConversions.cover&quot; &quot;/Output:$(CoverageResultsDir)\code-coverage.xml&quot;"/>
+        <Message Text="Creating HTML coverage report" />
+        <Exec Command="&quot;$(DotCoverPath)\dotCover.exe&quot; report &quot;/Source:$(CoverageResultsDir)\FluentConversions.cover&quot; &quot;/Output:$(CoverageReportDir)\code-coverage.html&quot; /ReportType:HTML"/>
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Finished Unit Tests with Coverage "/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+    </Target>
+    <Target Name="_Package">
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Packaging for Nuget "/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+        <MakeDir Condition="!Exists('$(NugetPackageOutputDir)')" Directories="$(NugetPackageOutputDir)"/>
+        <Exec Command="&quot;$(NugetPath)\nuget.exe&quot; pack &quot;$(MSBuildProjectDirectory)\FluentConversions\FluentConversions.csproj&quot; -Build -Symbols -Properties Configuration=Release -NonInteractive -version 0.1.0-beta1 -OutputDirectory &quot;$(NugetPackageOutputDir)&quot;" />
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Finished Packaging for Nuget "/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+    </Target>
+    <Target Name="_Deploy">
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Deploying to Nuget "/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+        <Exec Command="&quot;$(NugetPath)\nuget.exe&quot; push &quot;$(NugetPackageOutputDir)\FluentConversions.0.1.0-beta1.nupkg&quot;" />
+        <Message Text=" "/>
+        <Message Text="=================================================="/>
+        <Message Text="*** Finished Deploying to Nuget "/>
+        <Message Text="=================================================="/>
+        <Message Text=" "/>
+    </Target>
+</Project>

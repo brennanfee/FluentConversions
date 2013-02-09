@@ -19,5 +19,5 @@ using System.Resources;
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
 #else
-[assembly: AssemblyConfiguration(string.Empty)]
+[assembly: AssemblyConfiguration("")]
 #endif

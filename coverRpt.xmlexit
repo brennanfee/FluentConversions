@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReportParams>
+  <Source><!-- Coverage snapshot file name. --></Source>
+  <Output><!-- Resulting report file name. --></Output>
+  <ReportType><!-- [HTML|JSON|XML|NDependXML]. A type of the report. XML by default. --></ReportType>
+</ReportParams>

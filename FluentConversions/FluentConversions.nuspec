@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/brennanfee/FluentConversions</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright (c) 2013 Brennan A. Fee</copyright>
+    <tags>Fluent</tags>
+    <summary>
+        Fluent API for performing simple data conversions.  Provides culture sensitive options as well as alternates for control over how conversion failures behave.
+    </summary>
+    <description>$description$</description>
+    <releaseNotes>
+    Initial release (beta).
+    </releaseNotes>
+  </metadata>
+</package>
