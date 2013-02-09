@@ -491,5 +491,48 @@ namespace FluentConversions.StringConversions
         {
             return Decimal(style, CultureInfo.CurrentCulture);
         }
+
+        public decimal? Currency(bool round = false)
+        {
+            var result = Decimal(NumberStyles.Currency);
+            if (!result.HasValue)
+                return null;
+
+            return round ? Math.Round(result.Value, CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalDigits) : result;
+        }
+
+        public decimal? Currency(IFormatProvider provider, bool round = false)
+        {
+            var result = Decimal(NumberStyles.Currency, provider);
+            if (!result.HasValue)
+                return null;
+
+            if (round)
+            {
+                provider = provider ?? CultureInfo.CurrentCulture;
+                var numberFormat = (NumberFormatInfo)provider.GetFormat(typeof(NumberFormatInfo)) ?? CultureInfo.CurrentCulture.NumberFormat;
+                return Math.Round(result.Value, numberFormat.CurrencyDecimalDigits);
+            }
+
+            return result;
+        }
+
+        public decimal? CurrencyInvariant(bool round = false)
+        {
+            var result = Decimal(NumberStyles.Currency, CultureInfo.InvariantCulture);
+            if (!result.HasValue)
+                return null;
+
+            return round ? Math.Round(result.Value, CultureInfo.InvariantCulture.NumberFormat.CurrencyDecimalDigits) : result;
+        }
+
+        public decimal? CurrencyCulture(bool round = false)
+        {
+            var result = Decimal(NumberStyles.Currency, CultureInfo.CurrentCulture);
+            if (!result.HasValue)
+                return null;
+
+            return round ? Math.Round(result.Value, CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalDigits) : result;
+        }
     }
 }

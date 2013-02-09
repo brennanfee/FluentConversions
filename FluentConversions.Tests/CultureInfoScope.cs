@@ -26,6 +26,23 @@ namespace FluentConversions.Tests
 
         public CultureInfoScope(CultureInfo localCulture, CultureInfo localUICulture = null)
         {
+            SetCultures(localCulture, localUICulture);
+        }
+
+        public CultureInfoScope(int localCultureId, int? localUICultureId = null)
+        {
+            SetCultures(CultureInfo.GetCultureInfo(localCultureId), 
+                localUICultureId.HasValue ? CultureInfo.GetCultureInfo(localUICultureId.Value) : null);
+        }
+
+        public CultureInfoScope(string localCultureName, string localUICultureName = null)
+        {
+            SetCultures(CultureInfo.GetCultureInfo(localCultureName),
+                string.IsNullOrWhiteSpace(localUICultureName) ? null : CultureInfo.GetCultureInfo(localUICultureName));
+        }
+
+        private void SetCultures(CultureInfo localCulture, CultureInfo localUICulture = null)
+        {
             if (localCulture == null)
                 throw new ArgumentNullException("localCulture");
 
