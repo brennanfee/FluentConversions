@@ -11,7 +11,7 @@
     <RootNamespace>FluentConversions</RootNamespace>
     <AssemblyName>FluentConversions</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile36</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -70,6 +70,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="StringConversionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringConversions\DateTimeStringParser.cs" />
     <Compile Include="StringConversions\DefaultStringConversions.cs" />
     <Compile Include="StringConversions\GenericStringParser.cs" />
     <Compile Include="StringConversions\NullableStringConversions.cs" />

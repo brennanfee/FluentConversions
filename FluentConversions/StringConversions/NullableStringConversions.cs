@@ -8,6 +8,7 @@ using System;
 
 namespace FluentConversions.StringConversions
 {
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
 
@@ -533,6 +534,139 @@ namespace FluentConversions.StringConversions
                 return null;
 
             return round ? Math.Round(result.Value, CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalDigits) : result;
+        }
+
+        public char? Char()
+        {
+            return GenericStringParser.TryParseNullable<char>(_input, char.TryParse);
+        }
+
+        public bool? Bool()
+        {
+            return GenericStringParser.TryParseNullable<bool>(_input, bool.TryParse);
+        }
+
+        public Guid? Guid()
+        {
+            return GenericStringParser.TryParseNullable<Guid>(_input, System.Guid.TryParse);
+        }
+
+        public Guid? GuidExact(string format = "D")
+        {
+            Guid result;
+            if (!System.Guid.TryParseExact(_input, format, out result))
+                return null;
+
+            return result;
+        }
+
+        public T? Enum<T>(bool ignoreCase = true) where T : struct
+        {
+            T result;
+            if (!System.Enum.TryParse(_input, ignoreCase, out result))
+                return null;
+
+            return result;
+        }
+
+        public DateTime? DateTime(DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return DateTimeStringParser.DateTimeTryParseNullable(_input, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime? DateTime(IFormatProvider provider, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return DateTimeStringParser.DateTimeTryParseNullable(_input, provider, styles);
+        }
+
+        public DateTime? ParseExact(string format, IFormatProvider provider)
+        {
+            return DateTimeStringParser.DateTimeTryParseExactNullable(_input, format, provider, DateTimeStyles.AllowWhiteSpaces);
+        }
+
+        public DateTime? ParseExact(IEnumerable<string> formats, IFormatProvider provider)
+        {
+            return DateTimeStringParser.DateTimeTryParseExactNullable(_input, formats, provider, DateTimeStyles.AllowWhiteSpaces);
+        }
+
+        public DateTime? ParseExact(string format, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return DateTimeStringParser.DateTimeTryParseExactNullable(_input, format, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime? ParseExact(IEnumerable<string> formats, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return DateTimeStringParser.DateTimeTryParseExactNullable(_input, formats, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime? ParseExact(string format, IFormatProvider provider, DateTimeStyles styles)
+        {
+            return DateTimeStringParser.DateTimeTryParseExactNullable(_input, format, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime? ParseExact(IEnumerable<string> formats, IFormatProvider provider, DateTimeStyles styles)
+        {
+            return DateTimeStringParser.DateTimeTryParseExactNullable(_input, formats, provider, styles);
+        }
+
+        public DateTime? DateTimeCulture()
+        {
+            return GenericStringParser.ParseCulture(_input, CultureInfo.CurrentCulture, System.DateTime.Parse);
+        }
+
+        public DateTime? DateTimeCulture(DateTimeStyles styles)
+        {
+            return System.DateTime.Parse(_input, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime? ParseExactCulture(string format)
+        {
+            return System.DateTime.ParseExact(_input, format, CultureInfo.CurrentCulture);
+        }
+
+        public DateTime? ParseExactCulture(IEnumerable<string> formats)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), CultureInfo.CurrentCulture, DateTimeStyles.AllowWhiteSpaces);
+        }
+
+        public DateTime? ParseExactCulture(string format, DateTimeStyles styles)
+        {
+            return System.DateTime.ParseExact(_input, format, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime? ParseExactCulture(IEnumerable<string> formats, DateTimeStyles styles)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime? DateTimeInvariant()
+        {
+            return GenericStringParser.ParseCulture(_input, CultureInfo.InvariantCulture, System.DateTime.Parse);
+        }
+
+        public DateTime? DateTimeInvariant(DateTimeStyles styles)
+        {
+            return System.DateTime.Parse(_input, CultureInfo.InvariantCulture, styles);
+        }
+
+        public DateTime? ParseExactInvariant(string format)
+        {
+            return System.DateTime.ParseExact(_input, format, CultureInfo.InvariantCulture);
+        }
+
+        public DateTime? ParseExactInvariant(IEnumerable<string> formats)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces);
+        }
+
+        public DateTime? ParseExactInvariant(string format, DateTimeStyles styles)
+        {
+            return System.DateTime.ParseExact(_input, format, CultureInfo.InvariantCulture, styles);
+        }
+
+        public DateTime? ParseExactInvariant(IEnumerable<string> formats, DateTimeStyles styles)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), CultureInfo.InvariantCulture, styles);
         }
     }
 }

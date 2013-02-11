@@ -523,5 +523,32 @@ namespace FluentConversions.StringConversions
             var result = Decimal(NumberStyles.Currency, CultureInfo.CurrentCulture, defaultValue);
             return round ? Math.Round(result, CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalDigits) : result;
         }
+
+        public char Char(char defaultValue = default(char))
+        {
+            return GenericStringParser.TryParseDefault(_input, defaultValue, char.TryParse);
+        }
+
+        public bool Bool(bool defaultValue = default(bool))
+        {
+            return GenericStringParser.TryParseDefault(_input, defaultValue, bool.TryParse);
+        }
+
+        public Guid Guid(Guid defaultValue = default(Guid))
+        {
+            return GenericStringParser.TryParseDefault(_input, defaultValue, System.Guid.TryParse);
+        }
+
+        public Guid GuidExact(string format = "D", Guid defaultValue = default(Guid))
+        {
+            Guid result;
+            return !System.Guid.TryParseExact(_input, format, out result) ? defaultValue : result;
+        }
+
+        public T Enum<T>(T defaultValue = default(T), bool ignoreCase = true) where T : struct
+        {
+            T result;
+            return !System.Enum.TryParse(_input, ignoreCase, out result) ? defaultValue : result;
+        }
     }
 }

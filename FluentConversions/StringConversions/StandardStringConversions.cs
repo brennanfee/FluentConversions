@@ -8,6 +8,7 @@ using System;
 
 namespace FluentConversions.StringConversions
 {
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
 
@@ -30,12 +31,12 @@ namespace FluentConversions.StringConversions
             return GenericStringParser.ParseCulture(_input, provider, byte.Parse);
         }
 
-        public byte Byte(NumberStyles style)
+        public byte Byte(NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumeric(_input, style, byte.Parse);
         }
 
-        public byte Byte(NumberStyles style, IFormatProvider provider)
+        public byte Byte(IFormatProvider provider, NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumericCulture(_input, style, provider, byte.Parse);
         }
@@ -45,9 +46,9 @@ namespace FluentConversions.StringConversions
             return Byte(CultureInfo.InvariantCulture);
         }
 
-        public byte ByteInvariant(NumberStyles style)
+        public byte ByteInvariant(NumberStyles style = NumberStyles.Integer)
         {
-            return Byte(style, CultureInfo.InvariantCulture);
+            return Byte(CultureInfo.InvariantCulture, style);
         }
 
         public byte ByteCulture()
@@ -55,9 +56,9 @@ namespace FluentConversions.StringConversions
             return Byte(CultureInfo.CurrentCulture);
         }
 
-        public byte ByteCulture(NumberStyles style)
+        public byte ByteCulture(NumberStyles style = NumberStyles.Integer)
         {
-            return Byte(style, CultureInfo.CurrentCulture);
+            return Byte(CultureInfo.CurrentCulture, style);
         }
 
         public short Int16()
@@ -70,12 +71,12 @@ namespace FluentConversions.StringConversions
             return GenericStringParser.ParseCulture(_input, provider, short.Parse);
         }
 
-        public short Int16(NumberStyles style)
+        public short Int16(NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumeric(_input, style, short.Parse);
         }
 
-        public short Int16(NumberStyles style, IFormatProvider provider)
+        public short Int16(IFormatProvider provider, NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumericCulture(_input, style, provider, short.Parse);
         }
@@ -85,9 +86,9 @@ namespace FluentConversions.StringConversions
             return Int16(CultureInfo.InvariantCulture);
         }
 
-        public short Int16Invariant(NumberStyles style)
+        public short Int16Invariant(NumberStyles style = NumberStyles.Integer)
         {
-            return Int16(style, CultureInfo.InvariantCulture);
+            return Int16(CultureInfo.InvariantCulture, style);
         }
 
         public short Int16Culture()
@@ -95,9 +96,9 @@ namespace FluentConversions.StringConversions
             return Int16(CultureInfo.CurrentCulture);
         }
 
-        public short Int16Culture(NumberStyles style)
+        public short Int16Culture(NumberStyles style = NumberStyles.Integer)
         {
-            return Int16(style, CultureInfo.CurrentCulture);
+            return Int16(CultureInfo.CurrentCulture, style);
         }
 
         public int Int32()
@@ -110,12 +111,12 @@ namespace FluentConversions.StringConversions
             return GenericStringParser.ParseCulture(_input, provider, int.Parse);
         }
 
-        public int Int32(NumberStyles style)
+        public int Int32(NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumeric(_input, style, int.Parse);
         }
 
-        public int Int32(NumberStyles style, IFormatProvider provider)
+        public int Int32(IFormatProvider provider, NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumericCulture(_input, style, provider, int.Parse);
         }
@@ -125,9 +126,9 @@ namespace FluentConversions.StringConversions
             return Int32(CultureInfo.InvariantCulture);
         }
 
-        public int Int32Invariant(NumberStyles style)
+        public int Int32Invariant(NumberStyles style = NumberStyles.Integer)
         {
-            return Int32(style, CultureInfo.InvariantCulture);
+            return Int32(CultureInfo.InvariantCulture, style);
         }
 
         public int Int32Culture()
@@ -135,9 +136,9 @@ namespace FluentConversions.StringConversions
             return Int32(CultureInfo.CurrentCulture);
         }
 
-        public int Int32Culture(NumberStyles style)
+        public int Int32Culture(NumberStyles style = NumberStyles.Integer)
         {
-            return Int32(style, CultureInfo.CurrentCulture);
+            return Int32(CultureInfo.CurrentCulture, style);
         }
 
         public long Int64()
@@ -150,12 +151,12 @@ namespace FluentConversions.StringConversions
             return GenericStringParser.ParseCulture(_input, provider, long.Parse);
         }
 
-        public long Int64(NumberStyles style)
+        public long Int64(NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumeric(_input, style, long.Parse);
         }
 
-        public long Int64(NumberStyles style, IFormatProvider provider)
+        public long Int64(IFormatProvider provider, NumberStyles style = NumberStyles.Integer)
         {
             return GenericStringParser.ParseNumericCulture(_input, style, provider, long.Parse);
         }
@@ -167,7 +168,7 @@ namespace FluentConversions.StringConversions
 
         public long Int64Invariant(NumberStyles style)
         {
-            return Int64(style, CultureInfo.InvariantCulture);
+            return Int64(CultureInfo.InvariantCulture, style);
         }
 
         public long Int64Culture()
@@ -177,7 +178,7 @@ namespace FluentConversions.StringConversions
 
         public long Int64Culture(NumberStyles style)
         {
-            return Int64(style, CultureInfo.CurrentCulture);
+            return Int64(CultureInfo.CurrentCulture, style);
         }
 
         [CLSCompliant(false)]
@@ -522,6 +523,103 @@ namespace FluentConversions.StringConversions
         {
             var result = Decimal(NumberStyles.Currency, CultureInfo.CurrentCulture);
             return round ? Math.Round(result, CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalDigits) : result;
+        }
+
+        public char Char()
+        {
+            if (_input == null)
+            {
+                // TODO: Localize
+                throw new ArgumentNullException("String is null.", (Exception)null);
+            }
+
+            if (_input.Length != 1)
+            {
+                // TODO: Localize
+                throw new FormatException("The length of the string is not 1.");
+            }
+
+            return _input[0];
+        }
+
+        public bool Bool()
+        {
+            return GenericStringParser.Parse(_input, bool.Parse);
+        }
+
+        public Guid Guid()
+        {            
+            return GenericStringParser.Parse(_input, System.Guid.Parse);
+        }
+
+        public Guid GuidExact(string format = "D")
+        {
+            return System.Guid.ParseExact(_input, format);
+        }
+
+        public T Enum<T>(bool ignoreCase = true) where T : struct
+        {
+            return (T)System.Enum.Parse(typeof(T), _input, ignoreCase);
+        }
+
+        public DateTime DateTime(DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.Parse(_input, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime DateTime(IFormatProvider provider, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.Parse(_input, provider, styles);
+        }
+
+        public DateTime ParseExact(string format, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, format, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime ParseExact(IEnumerable<string> formats, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime ParseExact(string format, IFormatProvider provider, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, format, provider, styles);
+        }
+
+        public DateTime ParseExact(IEnumerable<string> formats, IFormatProvider provider, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), provider, styles);
+        }
+
+        public DateTime DateTimeCulture(DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.Parse(_input, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime ParseExactCulture(string format, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, format, CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime ParseExactCulture(IEnumerable<string> formats, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), CultureInfo.CurrentCulture, styles);
+        }
+
+        public DateTime DateTimeInvariant(DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.Parse(_input, CultureInfo.InvariantCulture, styles);
+        }
+
+        public DateTime ParseExactInvariant(string format, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, format, CultureInfo.InvariantCulture, styles);
+        }
+
+        public DateTime ParseExactInvariant(IEnumerable<string> formats, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces)
+        {
+            return System.DateTime.ParseExact(_input, formats.ToArray(), CultureInfo.InvariantCulture, styles);
         }
     }
 }
