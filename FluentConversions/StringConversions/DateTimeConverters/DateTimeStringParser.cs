@@ -5,12 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Linq;
 
-namespace FluentConversions.StringConversions
+namespace FluentConversions.StringConversions.DateTimeConverters
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
 
     internal static class DateTimeStringParser
     {
@@ -42,6 +42,26 @@ namespace FluentConversions.StringConversions
             return result;
         }
 
+        public static DateTime DateTimeTryParseDefault(string value, IFormatProvider provider, DateTimeStyles styles, DateTime defaultValue)
+        {
+            DateTime result;
+            return !DateTime.TryParse(value, provider, styles, out result) ? defaultValue : result;
+        }
+
+        public static DateTime DateTimeTryParseExactDefault(
+            string value, string format, IFormatProvider provider, DateTimeStyles styles, DateTime defaultValue)
+        {
+            DateTime result;
+            return !DateTime.TryParseExact(value, format, provider, styles, out result) ? defaultValue : result;
+        }
+
+        public static DateTime DateTimeTryParseExactDefault(
+            string value, IEnumerable<string> formats, IFormatProvider provider, DateTimeStyles styles, DateTime defaultValue)
+        {
+            DateTime result;
+            return !DateTime.TryParseExact(value, formats.ToArray(), provider, styles, out result) ? defaultValue : result;
+        }
+
         public static DateTimeOffset? DateTimeOffsetTryParseNullable(string value, IFormatProvider provider, DateTimeStyles styles)
         {
             DateTimeOffset result;
@@ -68,6 +88,27 @@ namespace FluentConversions.StringConversions
                 return null;
 
             return result;
+        }
+
+        public static DateTimeOffset DateTimeOffsetTryParseDefault(
+            string value, IFormatProvider provider, DateTimeStyles styles, DateTimeOffset defaultValue)
+        {
+            DateTimeOffset result;
+            return !DateTimeOffset.TryParse(value, provider, styles, out result) ? defaultValue : result;
+        }
+
+        public static DateTimeOffset DateTimeOffsetTryParseExactDefault(
+            string value, string format, IFormatProvider provider, DateTimeStyles styles, DateTimeOffset defaultValue)
+        {
+            DateTimeOffset result;
+            return !DateTimeOffset.TryParseExact(value, format, provider, styles, out result) ? defaultValue : result;
+        }
+
+        public static DateTimeOffset DateTimeOffsetTryParseExactDefault(
+            string value, IEnumerable<string> formats, IFormatProvider provider, DateTimeStyles styles, DateTimeOffset defaultValue)
+        {
+            DateTimeOffset result;
+            return !DateTimeOffset.TryParseExact(value, formats.ToArray(), provider, styles, out result) ? defaultValue : result;
         }
     }
 }

@@ -11,7 +11,7 @@
     <RootNamespace>FluentConversions</RootNamespace>
     <AssemblyName>FluentConversions</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile36</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile41</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -70,10 +70,36 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="StringConversionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringConversions\DateTimeStringParser.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeConversionsDefault.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeConversionsNullable.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeOffsetConversionsDefault.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeOffsetConversionsNullable.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeOffsetConversionsStandard.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeConversionsStandard.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeStringParser.cs" />
     <Compile Include="StringConversions\DefaultStringConversions.cs" />
-    <Compile Include="StringConversions\GenericStringParser.cs" />
+    <Compile Include="StringConversions\OtherConverters\EnumTools.cs" />
+    <Compile Include="StringConversions\OtherConverters\GenericStringParser.cs" />
     <Compile Include="StringConversions\NullableStringConversions.cs" />
+    <Compile Include="StringConversions\NumericConverters\CurrencyConversionsDefault.cs" />
+    <Compile Include="StringConversions\NumericConverters\CurrencyConversionsNullable.cs" />
+    <Compile Include="StringConversions\NumericConverters\CurrencyConversionsStandard.cs" />
+    <Compile Include="StringConversions\NumericConverters\GenericNumericConversionsDefault.cs" />
+    <Compile Include="StringConversions\NumericConverters\GenericNumericConversionsNullable.cs" />
+    <Compile Include="StringConversions\NumericConverters\GenericNumericConversionsStandard.cs" />
+    <Compile Include="StringConversions\NumericConverters\GenericNumericStringParser.cs" />
+    <Compile Include="StringConversions\OtherConverters\BoolConversionsDefault.cs" />
+    <Compile Include="StringConversions\OtherConverters\BoolConversionsNullable.cs" />
+    <Compile Include="StringConversions\OtherConverters\BoolConversionsStandard.cs" />
+    <Compile Include="StringConversions\OtherConverters\CharConversionsDefault.cs" />
+    <Compile Include="StringConversions\OtherConverters\CharConversionsNullable.cs" />
+    <Compile Include="StringConversions\OtherConverters\CharConversionsStandard.cs" />
+    <Compile Include="StringConversions\OtherConverters\EnumConversionsDefault.cs" />
+    <Compile Include="StringConversions\OtherConverters\EnumConversionsNullable.cs" />
+    <Compile Include="StringConversions\OtherConverters\EnumConversionsStandard.cs" />
+    <Compile Include="StringConversions\OtherConverters\GuidConversionsDefault.cs" />
+    <Compile Include="StringConversions\OtherConverters\GuidConversionsNullable.cs" />
+    <Compile Include="StringConversions\OtherConverters\GuidConversionsStandard.cs" />
     <Compile Include="StringConversions\StandardStringConversions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

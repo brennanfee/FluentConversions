@@ -18,91 +18,13 @@ namespace FluentConversions.Tests.StringConversions
         public class ByteTests
         {
             [Fact]
-            public void LowestBoundPasses()
-            {
-                var lowestBoundString = byte.MinValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().Byte();
-
-                result.Should().Be(byte.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = byte.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().ByteInvariant();
-
-                result.Should().Be(byte.MaxValue);
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                var outOfBoundString = ((long)byte.MaxValue + 1).ToString(CultureInfo.InvariantCulture);
-                const byte DefaultValue = 5;
-
-                var result = outOfBoundString.ConvertWithDefaultTo().Byte(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const byte DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().ByteInvariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void HexStringPasses()
-            {
-                const string HexString = "AB";
-
-                var result = HexString.ConvertWithDefaultTo().ByteInvariant(NumberStyles.HexNumber);
-
-                result.Should().Be(171);
-            }
-
-            [Fact]
             public void SimpleNumericPasses()
             {
                 const string Number = "171";
 
-                var result = Number.ConvertWithDefaultTo().Byte(NumberStyles.Integer);
+                var result = Number.ConvertWithDefaultTo().Byte.Parse(NumberStyles.Integer);
 
                 result.Should().Be(171);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "171";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().ByteCulture();
-
-                    result.Should().Be(171);
-                }
-            }
-
-            [Fact]
-            public void StylePassedFrenchCulturePasses()
-            {
-                const string Number = "171";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().ByteCulture(NumberStyles.Integer);
-
-                    result.Should().Be(171);
-                }
             }
         }
 
@@ -113,87 +35,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = short.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().Int16();
+                var result = lowestBoundString.ConvertWithDefaultTo().Int16.Parse();
 
                 result.Should().Be(short.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = short.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().Int16Invariant();
-
-                result.Should().Be(short.MaxValue);
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                var outOfBoundString = ((long)short.MaxValue + 1).ToString(CultureInfo.InvariantCulture);
-                const short DefaultValue = 5;
-
-                var result = outOfBoundString.ConvertWithDefaultTo().Int16(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const short DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().Int16Invariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void HexStringPasses()
-            {
-                const string HexString = "ABC";
-
-                var result = HexString.ConvertWithDefaultTo().Int16Invariant(NumberStyles.HexNumber);
-
-                result.Should().Be(2748);
-            }
-
-            [Fact]
-            public void ThousandsNumericPasses()
-            {
-                const string Number = "1,234";
-
-                var result = Number.ConvertWithDefaultTo().Int16(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                result.Should().Be(1234);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "1234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().Int16Culture();
-
-                    result.Should().Be(1234);
-                }
-            }
-
-            [Fact]
-            public void ThousandsFrenchCulturePasses()
-            {
-                const string Number = "1 234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().Int16Culture(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                    result.Should().Be(1234);
-                }
             }
         }
 
@@ -204,7 +48,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = int.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().Int32();
+                var result = lowestBoundString.ConvertWithDefaultTo().Int32.Parse();
 
                 result.Should().Be(int.MinValue);
             }
@@ -214,7 +58,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = int.MaxValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().Int32Invariant();
+                var result = lowestBoundString.ConvertWithDefaultTo().Int32.ParseInvariant();
 
                 result.Should().Be(int.MaxValue);
             }
@@ -225,7 +69,7 @@ namespace FluentConversions.Tests.StringConversions
                 var outOfBoundString = ((long)int.MaxValue + 1).ToString(CultureInfo.InvariantCulture);
                 const int DefaultValue = 5;
 
-                var result = outOfBoundString.ConvertWithDefaultTo().Int32(DefaultValue);
+                var result = outOfBoundString.ConvertWithDefaultTo().Int32.Parse(DefaultValue);
 
                 result.Should().Be(DefaultValue);
             }
@@ -233,10 +77,10 @@ namespace FluentConversions.Tests.StringConversions
             [Fact]
             public void NonnumericStringReturnsDefault()
             {
-                const string NonnumericString = "ABC";
+                const string NonnumericString = "XYZ";
                 const int DefaultValue = 5;
 
-                var result = NonnumericString.ConvertWithDefaultTo().Int32Invariant(DefaultValue);
+                var result = NonnumericString.ConvertWithDefaultTo().Int32.ParseInvariant(DefaultValue);
 
                 result.Should().Be(DefaultValue);
             }
@@ -246,7 +90,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string HexString = "ABC";
 
-                var result = HexString.ConvertWithDefaultTo().Int32Invariant(NumberStyles.HexNumber);
+                var result = HexString.ConvertWithDefaultTo().Int32.ParseInvariant(NumberStyles.HexNumber);
 
                 result.Should().Be(2748);
             }
@@ -256,7 +100,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "1,234";
 
-                var result = Number.ConvertWithDefaultTo().Int32(NumberStyles.Integer | NumberStyles.AllowThousands);
+                var result = Number.ConvertWithDefaultTo().Int32.Parse(NumberStyles.Integer | NumberStyles.AllowThousands);
 
                 result.Should().Be(1234);
             }
@@ -268,7 +112,7 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("fr-FR"))
                 {
-                    var result = Number.ConvertWithDefaultTo().Int32Culture();
+                    var result = Number.ConvertWithDefaultTo().Int32.ParseCulture();
 
                     result.Should().Be(1234);
                 }
@@ -281,7 +125,7 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("fr-FR"))
                 {
-                    var result = Number.ConvertWithDefaultTo().Int32Culture(NumberStyles.Integer | NumberStyles.AllowThousands);
+                    var result = Number.ConvertWithDefaultTo().Int32.ParseCulture(NumberStyles.Integer | NumberStyles.AllowThousands);
 
                     result.Should().Be(1234);
                 }
@@ -295,178 +139,22 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = long.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().Int64();
+                var result = lowestBoundString.ConvertWithDefaultTo().Int64.Parse();
 
                 result.Should().Be(long.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = long.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().Int64Invariant();
-
-                result.Should().Be(long.MaxValue);
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                const string OutOfBoundString = "9223372036854775808";
-                const long DefaultValue = 5;
-
-                var result = OutOfBoundString.ConvertWithDefaultTo().Int64(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const long DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().Int64Invariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void HexStringPasses()
-            {
-                const string HexString = "ABC";
-
-                var result = HexString.ConvertWithDefaultTo().Int64Invariant(NumberStyles.HexNumber);
-
-                result.Should().Be(2748);
-            }
-
-            [Fact]
-            public void ThousandsNumericPasses()
-            {
-                const string Number = "1,234";
-
-                var result = Number.ConvertWithDefaultTo().Int64(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                result.Should().Be(1234);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "1234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().Int64Culture();
-
-                    result.Should().Be(1234);
-                }
-            }
-
-            [Fact]
-            public void ThousandsFrenchCulturePasses()
-            {
-                const string Number = "1 234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().Int64Culture(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                    result.Should().Be(1234);
-                }
             }
         }
 
         public class SByteTests
         {
             [Fact]
-            public void LowestBoundPasses()
-            {
-                var lowestBoundString = sbyte.MinValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().SByte();
-
-                result.Should().Be(sbyte.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = sbyte.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().SByteInvariant();
-
-                result.Should().Be(sbyte.MaxValue);
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                var outOfBoundString = ((long)sbyte.MaxValue + 1).ToString(CultureInfo.InvariantCulture);
-                const sbyte DefaultValue = 5;
-
-                var result = outOfBoundString.ConvertWithDefaultTo().SByte(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const sbyte DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().SByteInvariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void HexStringPasses()
-            {
-                const string HexString = "7F";
-
-                var result = HexString.ConvertWithDefaultTo().SByteInvariant(NumberStyles.HexNumber);
-
-                result.Should().Be(127);
-            }
-
-            [Fact]
             public void SimpleNumericPasses()
             {
                 const string Number = "127";
 
-                var result = Number.ConvertWithDefaultTo().SByte(NumberStyles.Integer);
+                var result = Number.ConvertWithDefaultTo().SByte.Parse(NumberStyles.Integer);
 
                 result.Should().Be(127);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "127";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().SByteCulture();
-
-                    result.Should().Be(127);
-                }
-            }
-
-            [Fact]
-            public void StylePassedFrenchCulturePasses()
-            {
-                const string Number = "127";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().SByteCulture(NumberStyles.Integer);
-
-                    result.Should().Be(127);
-                }
             }
         }
 
@@ -477,87 +165,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = ushort.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().UInt16();
+                var result = lowestBoundString.ConvertWithDefaultTo().UInt16.Parse();
 
                 result.Should().Be(ushort.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = ushort.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().UInt16Invariant();
-
-                result.Should().Be(ushort.MaxValue);
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                var outOfBoundString = ((long)ushort.MaxValue + 1).ToString(CultureInfo.InvariantCulture);
-                const ushort DefaultValue = 5;
-
-                var result = outOfBoundString.ConvertWithDefaultTo().UInt16(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const ushort DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().UInt16Invariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void HexStringPasses()
-            {
-                const string HexString = "ABC";
-
-                var result = HexString.ConvertWithDefaultTo().UInt16Invariant(NumberStyles.HexNumber);
-
-                result.Should().Be(2748);
-            }
-
-            [Fact]
-            public void ThousandsNumericPasses()
-            {
-                const string Number = "1,234";
-
-                var result = Number.ConvertWithDefaultTo().UInt16(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                result.Should().Be(1234);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "1234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().UInt16Culture();
-
-                    result.Should().Be(1234);
-                }
-            }
-
-            [Fact]
-            public void ThousandsFrenchCulturePasses()
-            {
-                const string Number = "1 234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().UInt16Culture(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                    result.Should().Be(1234);
-                }
             }
         }
 
@@ -568,87 +178,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = uint.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().UInt32();
+                var result = lowestBoundString.ConvertWithDefaultTo().UInt32.Parse();
 
                 result.Should().Be(uint.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = uint.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().UInt32Invariant();
-
-                result.Should().Be(uint.MaxValue);
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                var outOfBoundString = ((long)uint.MaxValue + 1).ToString(CultureInfo.InvariantCulture);
-                const uint DefaultValue = 5;
-
-                var result = outOfBoundString.ConvertWithDefaultTo().UInt32(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const uint DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().UInt32Invariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void HexStringPasses()
-            {
-                const string HexString = "ABC";
-
-                var result = HexString.ConvertWithDefaultTo().UInt32Invariant(NumberStyles.HexNumber);
-
-                result.Should().Be(2748);
-            }
-
-            [Fact]
-            public void ThousandsNumericPasses()
-            {
-                const string Number = "1,234";
-
-                var result = Number.ConvertWithDefaultTo().UInt32(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                result.Should().Be(1234);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "1234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().UInt32Culture();
-
-                    result.Should().Be(1234);
-                }
-            }
-
-            [Fact]
-            public void ThousandsFrenchCulturePasses()
-            {
-                const string Number = "1 234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().UInt32Culture(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                    result.Should().Be(1234);
-                }
             }
         }
 
@@ -659,87 +191,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = ulong.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().UInt64();
+                var result = lowestBoundString.ConvertWithDefaultTo().UInt64.Parse();
 
                 result.Should().Be(ulong.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = ulong.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().UInt64Invariant();
-
-                result.Should().Be(ulong.MaxValue);
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                const string OutOfBoundString = "18446744073709551616";
-                const ulong DefaultValue = 5;
-
-                var result = OutOfBoundString.ConvertWithDefaultTo().UInt64(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const ulong DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().UInt64Invariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void HexStringPasses()
-            {
-                const string HexString = "ABC";
-
-                var result = HexString.ConvertWithDefaultTo().UInt64Invariant(NumberStyles.HexNumber);
-
-                result.Should().Be(2748);
-            }
-
-            [Fact]
-            public void ThousandsNumericPasses()
-            {
-                const string Number = "1,234";
-
-                var result = Number.ConvertWithDefaultTo().UInt64(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                result.Should().Be(1234);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "1234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().UInt64Culture();
-
-                    result.Should().Be(1234);
-                }
-            }
-
-            [Fact]
-            public void ThousandsFrenchCulturePasses()
-            {
-                const string Number = "1 234";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().UInt64Culture(NumberStyles.Integer | NumberStyles.AllowThousands);
-
-                    result.Should().Be(1234);
-                }
             }
         }
 
@@ -750,9 +204,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = float.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().Single();
+                var result = lowestBoundString.ConvertWithDefaultTo().Single.Parse();
 
-                AlmostEqual2SComplement(result, float.MinValue, 1000).Should().BeTrue();
+                FloatAssertions.AlmostEqual(result, float.MinValue).Should().BeTrue();
             }
 
             [Fact]
@@ -760,9 +214,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = float.MaxValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().SingleInvariant();
+                var result = lowestBoundString.ConvertWithDefaultTo().Single.ParseInvariant();
 
-                AlmostEqual2SComplement(result, float.MaxValue, 1000).Should().BeTrue();
+                FloatAssertions.AlmostEqual(result, float.MaxValue).Should().BeTrue();
             }
 
             [Fact]
@@ -771,7 +225,7 @@ namespace FluentConversions.Tests.StringConversions
                 const string OutOfBoundString = "3.4e39";
                 const float DefaultValue = 5;
 
-                var result = OutOfBoundString.ConvertWithDefaultTo().Single(DefaultValue);
+                var result = OutOfBoundString.ConvertWithDefaultTo().Single.Parse(DefaultValue);
 
                 result.Should().Be(DefaultValue);
             }
@@ -779,10 +233,10 @@ namespace FluentConversions.Tests.StringConversions
             [Fact]
             public void NonnumericStringReturnsDefault()
             {
-                const string NonnumericString = "ABC";
+                const string NonnumericString = "XYZ";
                 const float DefaultValue = 5;
 
-                var result = NonnumericString.ConvertWithDefaultTo().SingleInvariant(DefaultValue);
+                var result = NonnumericString.ConvertWithDefaultTo().Single.ParseInvariant(DefaultValue);
 
                 result.Should().Be(DefaultValue);
             }
@@ -792,7 +246,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "(2748)";
 
-                var result = Number.ConvertWithDefaultTo().SingleInvariant(NumberStyles.Any);
+                var result = Number.ConvertWithDefaultTo().Single.ParseInvariant(NumberStyles.Any);
 
                 result.Should().Be(-2748);
             }
@@ -802,7 +256,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "1,234";
 
-                var result = Number.ConvertWithDefaultTo().Single(NumberStyles.Number);
+                var result = Number.ConvertWithDefaultTo().Single.Parse();
 
                 result.Should().Be(1234);
             }
@@ -814,7 +268,7 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("fr-FR"))
                 {
-                    var result = Number.ConvertWithDefaultTo().SingleCulture();
+                    var result = Number.ConvertWithDefaultTo().Single.ParseCulture();
 
                     result.Should().Be(1234);
                 }
@@ -827,24 +281,10 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("fr-FR"))
                 {
-                    var result = Number.ConvertWithDefaultTo().SingleCulture(NumberStyles.Number);
+                    var result = Number.ConvertWithDefaultTo().Single.ParseCulture(NumberStyles.Number);
 
                     result.Should().Be(1234);
                 }
-            }
-
-            private static bool AlmostEqual2SComplement(float first, float second, int maxDeltaBits)
-            {
-                var firstAsInt = BitConverter.ToInt32(BitConverter.GetBytes(first), 0);
-                if (firstAsInt < 0)
-                    firstAsInt = int.MinValue - firstAsInt;
-
-                var secondAsInt = BitConverter.ToInt32(BitConverter.GetBytes(second), 0);
-                if (secondAsInt < 0)
-                    secondAsInt = int.MinValue - secondAsInt;
-
-                var intDiff = Math.Abs(firstAsInt - secondAsInt);
-                return intDiff <= (1 << maxDeltaBits);
             }
         }
 
@@ -855,101 +295,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = (-1e300).ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().Double();
+                var result = lowestBoundString.ConvertWithDefaultTo().Double.Parse();
 
-                AlmostEqual2SComplement(result, -1e300, 1000).Should().BeTrue();
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = 1e300.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().DoubleInvariant();
-
-                AlmostEqual2SComplement(result, 1e300, 1000).Should().BeTrue();
-            }
-
-            [Fact]
-            public void OutOfBoundReturnsDefault()
-            {
-                const string OutOfBoundString = "1.7E309";
-                const double DefaultValue = 5;
-
-                var result = OutOfBoundString.ConvertWithDefaultTo().Double(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const double DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().DoubleInvariant(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NegativeParenthesesPasses()
-            {
-                const string Number = "(2748)";
-
-                var result = Number.ConvertWithDefaultTo().DoubleInvariant(NumberStyles.Any);
-
-                result.Should().Be(-2748);
-            }
-
-            [Fact]
-            public void ThousandsNumericPasses()
-            {
-                const string Number = "1,234.567";
-
-                var result = Number.ConvertWithDefaultTo().Double(NumberStyles.Number);
-
-                result.Should().Be(1234.567);
-            }
-
-            [Fact]
-            public void SimpleFrenchCulturePasses()
-            {
-                const string Number = "1234,567";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().DoubleCulture();
-
-                    result.Should().Be(1234.567);
-                }
-            }
-
-            [Fact]
-            public void ThousandsFrenchCulturePasses()
-            {
-                const string Number = "1 234,567";
-
-                using (new CultureInfoScope("fr-FR"))
-                {
-                    var result = Number.ConvertWithDefaultTo().DoubleCulture(NumberStyles.Number);
-
-                    result.Should().Be(1234.567);
-                }
-            }
-
-            private static bool AlmostEqual2SComplement(double first, double second, int maxDeltaBits)
-            {
-                var firstAsInt = BitConverter.ToInt32(BitConverter.GetBytes(first), 0);
-                if (firstAsInt < 0)
-                    firstAsInt = int.MinValue - firstAsInt;
-
-                var secondAsInt = BitConverter.ToInt32(BitConverter.GetBytes(second), 0);
-                if (secondAsInt < 0)
-                    secondAsInt = int.MinValue - secondAsInt;
-
-                var intDiff = Math.Abs(firstAsInt - secondAsInt);
-                return intDiff <= (1 << maxDeltaBits);
+                FloatAssertions.AlmostEqual(result, -1e300).Should().BeTrue();
             }
         }
 
@@ -960,19 +308,9 @@ namespace FluentConversions.Tests.StringConversions
             {
                 var lowestBoundString = decimal.MinValue.ToString(CultureInfo.InvariantCulture);
 
-                var result = lowestBoundString.ConvertWithDefaultTo().Decimal();
+                var result = lowestBoundString.ConvertWithDefaultTo().Decimal.Parse();
 
                 result.Should().Be(decimal.MinValue);
-            }
-
-            [Fact]
-            public void HighestBoundPasses()
-            {
-                var lowestBoundString = decimal.MaxValue.ToString(CultureInfo.InvariantCulture);
-
-                var result = lowestBoundString.ConvertWithDefaultTo().DecimalInvariant();
-
-                result.Should().Be(decimal.MaxValue);
             }
 
             [Fact]
@@ -981,18 +319,7 @@ namespace FluentConversions.Tests.StringConversions
                 const string OutOfBoundString = "79000000000000000000000000000000";
                 const decimal DefaultValue = 5;
 
-                var result = OutOfBoundString.ConvertWithDefaultTo().Decimal(DefaultValue);
-
-                result.Should().Be(DefaultValue);
-            }
-
-            [Fact]
-            public void NonnumericStringReturnsDefault()
-            {
-                const string NonnumericString = "ABC";
-                const decimal DefaultValue = 5;
-
-                var result = NonnumericString.ConvertWithDefaultTo().DecimalInvariant(DefaultValue);
+                var result = OutOfBoundString.ConvertWithDefaultTo().Decimal.Parse(DefaultValue);
 
                 result.Should().Be(DefaultValue);
             }
@@ -1002,7 +329,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "(2748)";
 
-                var result = Number.ConvertWithDefaultTo().DecimalInvariant(NumberStyles.Any);
+                var result = Number.ConvertWithDefaultTo().Decimal.ParseInvariant(NumberStyles.Any);
 
                 result.Should().Be(-2748);
             }
@@ -1012,7 +339,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "1,234.567";
 
-                var result = Number.ConvertWithDefaultTo().Decimal(NumberStyles.Number);
+                var result = Number.ConvertWithDefaultTo().Decimal.Parse();
 
                 result.Should().Be(1234.567m);
             }
@@ -1024,7 +351,7 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("fr-FR"))
                 {
-                    var result = Number.ConvertWithDefaultTo().DecimalCulture();
+                    var result = Number.ConvertWithDefaultTo().Decimal.ParseCulture(NumberStyles.Number & ~NumberStyles.AllowThousands);
 
                     result.Should().Be(1234.567m);
                 }
@@ -1037,7 +364,7 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("fr-FR"))
                 {
-                    var result = Number.ConvertWithDefaultTo().DecimalCulture(NumberStyles.Number);
+                    var result = Number.ConvertWithDefaultTo().Decimal.ParseCulture();
 
                     result.Should().Be(1234.567m);
                 }
@@ -1053,10 +380,17 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("sv-SE"))
                 {
-                    var result = Number.ConvertWithDefaultTo().Currency();
+                    var result = Number.ConvertWithDefaultTo().Currency.Parse();
 
                     result.Should().Be(1234.567m);
                 }
+            }
+
+            [Fact]
+            public void BaseInvalidInputReturnsDefault()
+            {
+                var result = string.Empty.ConvertWithDefaultTo().Currency.Parse(10);
+                result.Should().Be(10);
             }
 
             [Fact]
@@ -1066,7 +400,7 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("sv-SE"))
                 {
-                    var result = Number.ConvertWithDefaultTo().Currency(0, true);
+                    var result = Number.ConvertWithDefaultTo().Currency.Parse(0, true);
 
                     result.Should().Be(1234.57m);
                 }
@@ -1077,9 +411,16 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "1 234,567 kr";
 
-                var result = Number.ConvertWithDefaultTo().Currency(CultureInfo.GetCultureInfo("sv-SE"));
+                var result = Number.ConvertWithDefaultTo().Currency.Parse(CultureInfo.GetCultureInfo("sv-SE"));
 
                 result.Should().Be(1234.567m);
+            }
+
+            [Fact]
+            public void PassedCultureInvalidInputReturnsDefault()
+            {
+                var result = string.Empty.ConvertWithDefaultTo().Currency.Parse(CultureInfo.GetCultureInfo("sv-SE"), 10);
+                result.Should().Be(10);
             }
 
             [Fact]
@@ -1087,7 +428,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "1 234,567 kr";
 
-                var result = Number.ConvertWithDefaultTo().Currency(CultureInfo.GetCultureInfo("sv-SE"), 0, true);
+                var result = Number.ConvertWithDefaultTo().Currency.Parse(CultureInfo.GetCultureInfo("sv-SE"), 0, true);
 
                 result.Should().Be(1234.57m);
             }
@@ -1097,9 +438,16 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "¤ 1,234.567";
 
-                var result = Number.ConvertWithDefaultTo().CurrencyInvariant();
+                var result = Number.ConvertWithDefaultTo().Currency.ParseInvariant();
 
                 result.Should().Be(1234.567m);
+            }
+
+            [Fact]
+            public void InvariantInvalidInputReturnsDefault()
+            {
+                var result = string.Empty.ConvertWithDefaultTo().Currency.ParseInvariant(10);
+                result.Should().Be(10);
             }
 
             [Fact]
@@ -1107,7 +455,7 @@ namespace FluentConversions.Tests.StringConversions
             {
                 const string Number = "¤ 1,234.567";
 
-                var result = Number.ConvertWithDefaultTo().CurrencyInvariant(0, true);
+                var result = Number.ConvertWithDefaultTo().Currency.ParseInvariant(0, true);
 
                 result.Should().Be(1234.57m);
             }
@@ -1119,10 +467,17 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("en-US"))
                 {
-                    var result = Number.ConvertWithDefaultTo().CurrencyCulture();
+                    var result = Number.ConvertWithDefaultTo().Currency.ParseCulture();
 
                     result.Should().Be(1234.567m);
                 }
+            }
+
+            [Fact]
+            public void CultureInvalidInputReturnsDefault()
+            {
+                var result = string.Empty.ConvertWithDefaultTo().Currency.ParseCulture(10);
+                result.Should().Be(10);
             }
 
             [Fact]
@@ -1132,7 +487,7 @@ namespace FluentConversions.Tests.StringConversions
 
                 using (new CultureInfoScope("en-US"))
                 {
-                    var result = Number.ConvertWithDefaultTo().CurrencyCulture(0, true);
+                    var result = Number.ConvertWithDefaultTo().Currency.ParseCulture(0, true);
 
                     result.Should().Be(1234.57m);
                 }
