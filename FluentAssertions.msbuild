@@ -134,7 +134,7 @@
         <Message Text="=================================================="/>
         <Message Text=" "/>
         <MakeDir Condition="!Exists('$(NugetPackageOutputDir)')" Directories="$(NugetPackageOutputDir)"/>
-        <Exec Command="&quot;$(NugetPath)\nuget.exe&quot; pack &quot;$(MSBuildProjectDirectory)\FluentConversions\FluentConversions.csproj&quot; -Build -Symbols -Properties Configuration=Release -NonInteractive -version 0.1.0-beta1 -OutputDirectory &quot;$(NugetPackageOutputDir)&quot;" />
+        <Exec Command="&quot;$(NugetPath)\nuget.exe&quot; pack &quot;$(MSBuildProjectDirectory)\FluentConversions\FluentConversions.csproj&quot; -Build -Symbols -Properties Configuration=Release -NonInteractive -version 0.2.0 -OutputDirectory &quot;$(NugetPackageOutputDir)&quot;" />
         <Message Text=" "/>
         <Message Text="=================================================="/>
         <Message Text="*** Finished Packaging for Nuget "/>
@@ -147,7 +147,7 @@
         <Message Text="*** Deploying to Nuget "/>
         <Message Text="=================================================="/>
         <Message Text=" "/>
-        <Exec Command="&quot;$(NugetPath)\nuget.exe&quot; push &quot;$(NugetPackageOutputDir)\FluentConversions.0.1.0-beta1.nupkg&quot;" />
+        <Exec Command="&quot;$(NugetPath)\nuget.exe&quot; push &quot;$(NugetPackageOutputDir)\FluentConversions.0.2.0.nupkg&quot;" />
         <Message Text=" "/>
         <Message Text="=================================================="/>
         <Message Text="*** Finished Deploying to Nuget "/>
