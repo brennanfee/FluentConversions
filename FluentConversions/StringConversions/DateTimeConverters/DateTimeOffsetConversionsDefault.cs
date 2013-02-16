@@ -23,10 +23,10 @@ namespace FluentConversions.StringConversions.DateTimeConverters
 
         public DateTimeOffset Parse(DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return Parse(CultureInfo.CurrentCulture, defaultValue);
+            return Parse(DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset Parse(DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset Parse(DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return Parse(CultureInfo.CurrentCulture, styles, defaultValue);
         }
@@ -36,29 +36,27 @@ namespace FluentConversions.StringConversions.DateTimeConverters
             return Parse(provider, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset Parse(
-            IFormatProvider provider, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset Parse(IFormatProvider provider, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return DateTimeStringParser.DateTimeOffsetTryParseDefault(_input, provider, styles, defaultValue);
         }
 
         public DateTimeOffset ParseExact(string format, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return ParseExact(format, CultureInfo.CurrentCulture, defaultValue);
+            return ParseExact(format, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseExact(string format, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseExact(string format, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return ParseExact(format, CultureInfo.CurrentCulture, styles, defaultValue);
         }
 
         public DateTimeOffset ParseExact(IEnumerable<string> formats, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return ParseExact(formats, CultureInfo.CurrentCulture, defaultValue);
+            return ParseExact(formats, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseExact(
-            IEnumerable<string> formats, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseExact(IEnumerable<string> formats, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return ParseExact(formats, CultureInfo.CurrentCulture, styles, defaultValue);
         }
@@ -68,8 +66,7 @@ namespace FluentConversions.StringConversions.DateTimeConverters
             return ParseExact(format, provider, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseExact(
-            string format, IFormatProvider provider, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseExact(string format, IFormatProvider provider, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return DateTimeStringParser.DateTimeOffsetTryParseExactDefault(_input, format, provider, styles, defaultValue);
         }
@@ -79,75 +76,69 @@ namespace FluentConversions.StringConversions.DateTimeConverters
             return ParseExact(formats, provider, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseExact(
-            IEnumerable<string> formats,
-            IFormatProvider provider,
-            DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces,
-            DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseExact(IEnumerable<string> formats, IFormatProvider provider, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return DateTimeStringParser.DateTimeOffsetTryParseExactDefault(_input, formats, provider, styles, defaultValue);
         }
 
         public DateTimeOffset ParseCulture(DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return Parse(CultureInfo.CurrentCulture, defaultValue);
+            return ParseCulture(DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseCulture(DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseCulture(DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return Parse(CultureInfo.CurrentCulture, styles, defaultValue);
         }
 
         public DateTimeOffset ParseExactCulture(string format, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return ParseExact(format, CultureInfo.CurrentCulture, defaultValue);
+            return ParseExactCulture(format, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseExactCulture(
-            string format, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseExactCulture(string format, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return ParseExact(format, CultureInfo.CurrentCulture, styles, defaultValue);
         }
 
         public DateTimeOffset ParseExactCulture(IEnumerable<string> formats, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return ParseExact(formats, CultureInfo.CurrentCulture, defaultValue);
+            return ParseExactCulture(formats, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
         public DateTimeOffset ParseExactCulture(
-            IEnumerable<string> formats, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+            IEnumerable<string> formats, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return ParseExact(formats, CultureInfo.CurrentCulture, styles, defaultValue);
         }
 
         public DateTimeOffset ParseInvariant(DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return Parse(CultureInfo.InvariantCulture, defaultValue);
+            return ParseInvariant(DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseInvariant(DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseInvariant(DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return Parse(CultureInfo.InvariantCulture, styles, defaultValue);
         }
 
         public DateTimeOffset ParseExactInvariant(string format, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return ParseExact(format, CultureInfo.InvariantCulture, defaultValue);
+            return ParseExactInvariant(format, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
-        public DateTimeOffset ParseExactInvariant(
-            string format, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+        public DateTimeOffset ParseExactInvariant(string format, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return ParseExact(format, CultureInfo.InvariantCulture, styles, defaultValue);
         }
 
         public DateTimeOffset ParseExactInvariant(IEnumerable<string> formats, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
-            return ParseExact(formats, CultureInfo.InvariantCulture, defaultValue);
+            return ParseExactInvariant(formats, DateTimeStyles.AllowWhiteSpaces, defaultValue);
         }
 
         public DateTimeOffset ParseExactInvariant(
-            IEnumerable<string> formats, DateTimeStyles styles = DateTimeStyles.AllowWhiteSpaces, DateTimeOffset defaultValue = default(DateTimeOffset))
+            IEnumerable<string> formats, DateTimeStyles styles, DateTimeOffset defaultValue = default(DateTimeOffset))
         {
             return ParseExact(formats, CultureInfo.InvariantCulture, styles, defaultValue);
         }

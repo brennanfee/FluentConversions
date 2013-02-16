@@ -120,5 +120,10 @@ namespace FluentConversions.StringConversions
         {
             get { return new DateTimeOffsetConversionsStandard(_input); }
         }
+
+        public TimeSpanConversionsStandard TimeSpan 
+        {
+            get { return new TimeSpanConversionsStandard(_input); }
+        }
     }
 }

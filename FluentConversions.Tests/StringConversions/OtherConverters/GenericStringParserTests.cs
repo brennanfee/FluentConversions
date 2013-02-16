@@ -6,7 +6,7 @@
 
 using System;
 
-namespace FluentConversions.Tests.StringConversions
+namespace FluentConversions.Tests.StringConversions.OtherConverters
 {
     using System.Globalization;
     using System.Linq;

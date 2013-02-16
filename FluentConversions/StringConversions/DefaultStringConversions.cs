@@ -124,5 +124,10 @@ namespace FluentConversions.StringConversions
         {
             get { return new DateTimeOffsetConversionsDefault(_input); }
         }
+
+        public TimeSpanConversionsDefault TimeSpan
+        {
+            get { return new TimeSpanConversionsDefault(_input); }
+        }
     }
 }

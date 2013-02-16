@@ -360,7 +360,7 @@ namespace FluentConversions.Tests.StringConversions
         public class CurrencyTests
         {
             [Fact]
-            public void BaseUsesCurrentCulture() 
+            public void BaseUsesCurrentCulture()
             {
                 const string Number = "1 234,567 kr";
 
@@ -572,7 +572,6 @@ namespace FluentConversions.Tests.StringConversions
 
                 Assert.Throws<FormatException>(() => valueString.ConvertTo().Guid.ParseExact("N"));
             }
-
         }
 
         public static class EnumTests
@@ -580,7 +579,7 @@ namespace FluentConversions.Tests.StringConversions
             private enum SimpleEnum
             {
                 [Display(Name = "Value A")]
-                ValueA,                
+                ValueA,
                 ValueB,
                 [Display(Name = "Value Other")]
                 ValueC
@@ -591,10 +590,10 @@ namespace FluentConversions.Tests.StringConversions
             {
                 None = 0,
                 [Display(Name = "Value A")]
-                ValueA = 1,                
+                ValueA = 1,
                 ValueB = 1 << 1,
                 [Display(Name = "Value Other")]
-                ValueC = 1 << 2,                
+                ValueC = 1 << 2,
                 All = ValueA | ValueB | ValueC
             }
 
@@ -603,18 +602,25 @@ namespace FluentConversions.Tests.StringConversions
                 [Fact]
                 public void ValidEnumTextPasses()
                 {
-                    const string Value = "valuea";
-                    var result = Value.ConvertTo().Enum.Parse(typeof(SimpleEnum));
-                    var enumResult = (SimpleEnum)result;
+                    var result = "valuea".ConvertTo().Enum.ParseByType(typeof(SimpleEnum));
+                    var enumResult1 = (SimpleEnum)result;
 
-                    enumResult.Should().Be(SimpleEnum.ValueA);
+                    result = "valueb".ConvertTo().Enum.ParseByType(typeof(SimpleEnum));
+                    var enumResult2 = (SimpleEnum)result;
+
+                    result = "valuec".ConvertTo().Enum.ParseByType(typeof(SimpleEnum));
+                    var enumResult3 = (SimpleEnum)result;
+
+                    enumResult1.Should().Be(SimpleEnum.ValueA);
+                    enumResult2.Should().Be(SimpleEnum.ValueB);
+                    enumResult3.Should().Be(SimpleEnum.ValueC);
                 }
 
                 [Fact]
                 public void ValidEnumNumberPasses()
                 {
                     const string Value = "0";
-                    var result = Value.ConvertTo().Enum.Parse(typeof(SimpleEnum));
+                    var result = Value.ConvertTo().Enum.ParseByType(typeof(SimpleEnum));
                     var enumResult = (SimpleEnum)result;
 
                     enumResult.Should().Be(SimpleEnum.ValueA);
@@ -624,31 +630,42 @@ namespace FluentConversions.Tests.StringConversions
                 public void InvalidEnumTextThrows()
                 {
                     const string Value = "XYZ";
-                    Assert.Throws<ArgumentException>(() => Value.ConvertTo().Enum.Parse(typeof(SimpleEnum)));
+                    Assert.Throws<ArgumentException>(() => Value.ConvertTo().Enum.ParseByType(typeof(SimpleEnum)));
                 }
 
                 [Fact]
                 public void InvalidEnumNumberThrows()
                 {
                     const string Value = "10";
-                    Assert.Throws<ArgumentException>(() => Value.ConvertTo().Enum.Parse(typeof(SimpleEnum)));
+                    Assert.Throws<ArgumentException>(() => Value.ConvertTo().Enum.ParseByType(typeof(SimpleEnum)));
                 }
 
                 [Fact]
                 public void ValidFlagTextPasses()
                 {
-                    const string Value = "all";
-                    var result = Value.ConvertTo().Enum.Parse(typeof(SimpleFlagEnum));
-                    var enumResult = (SimpleFlagEnum)result;
+                    var result = "all".ConvertTo().Enum.ParseByType(typeof(SimpleFlagEnum));
+                    var enumResult1 = (SimpleFlagEnum)result;
 
-                    enumResult.Should().Be(SimpleFlagEnum.All);
+                    result = "none".ConvertTo().Enum.ParseByType(typeof(SimpleFlagEnum));
+                    var enumResult2 = (SimpleFlagEnum)result;
+
+                    result = "ValueB".ConvertTo().Enum.ParseByType(typeof(SimpleFlagEnum));
+                    var enumResult3 = (SimpleFlagEnum)result;
+
+                    result = "ValueA,ValueB".ConvertTo().Enum.ParseByType(typeof(SimpleFlagEnum));
+                    var enumResult4 = (SimpleFlagEnum)result;
+
+                    enumResult1.Should().Be(SimpleFlagEnum.All);
+                    enumResult2.Should().Be(SimpleFlagEnum.None);
+                    enumResult3.Should().Be(SimpleFlagEnum.ValueB);
+                    enumResult4.Should().Be(SimpleFlagEnum.ValueA | SimpleFlagEnum.ValueB);
                 }
 
                 [Fact]
                 public void ValidFlagMultipleTextPasses()
                 {
                     const string Value = "valuea, valueb";
-                    var result = Value.ConvertTo().Enum.Parse(typeof(SimpleFlagEnum));
+                    var result = Value.ConvertTo().Enum.ParseByType(typeof(SimpleFlagEnum));
                     var enumResult = (SimpleFlagEnum)result;
 
                     enumResult.Should().Be(SimpleFlagEnum.ValueA | SimpleFlagEnum.ValueB);
@@ -658,7 +675,7 @@ namespace FluentConversions.Tests.StringConversions
                 public void ValidFlagNumberPasses()
                 {
                     const string Value = "7";
-                    var result = Value.ConvertTo().Enum.Parse(typeof(SimpleFlagEnum));
+                    var result = Value.ConvertTo().Enum.ParseByType(typeof(SimpleFlagEnum));
                     var enumResult = (SimpleFlagEnum)result;
 
                     enumResult.Should().Be(SimpleFlagEnum.All);
@@ -668,7 +685,7 @@ namespace FluentConversions.Tests.StringConversions
                 public void ValidFlagNumberWithoutLabelPasses()
                 {
                     const string Value = "3";
-                    var result = Value.ConvertTo().Enum.Parse(typeof(SimpleFlagEnum));
+                    var result = Value.ConvertTo().Enum.ParseByType(typeof(SimpleFlagEnum));
                     var enumResult = (SimpleFlagEnum)result;
 
                     enumResult.Should().Be(SimpleFlagEnum.ValueA | SimpleFlagEnum.ValueB);
@@ -810,14 +827,14 @@ namespace FluentConversions.Tests.StringConversions
             public void ValidExactMatchArrayPasses()
             {
                 var result1 = "2012-12-25T15:14:22".ConvertTo().DateTime.ParseExact(new[] { "s", "o" });
-                var result2 = "2012-12-25T15:14:22.0900000-08:00".ConvertTo().DateTime.ParseExactCulture(new[] { "s", "o" });
-                var result3 = "2012-12-25 15:14:22Z".ConvertTo().DateTime.ParseExactInvariant(new[] { "s", "u" });
+                var result2 = "2012-12-25T15:15:22.0900000-08:00".ConvertTo().DateTime.ParseExactCulture(new[] { "s", "o" });
+                var result3 = "2012-12-25 15:16:22Z".ConvertTo().DateTime.ParseExactInvariant(new[] { "s", "u" });
 
                 result1.Should().Be(new DateTime(2012, 12, 25, 15, 14, 22, 0));
                 result1.Kind.Should().Be(DateTimeKind.Unspecified);
-                result2.Should().Be(new DateTime(2012, 12, 25, 15, 14, 22, 90));
+                result2.Should().Be(new DateTime(2012, 12, 25, 15, 15, 22, 90));
                 result2.Kind.Should().Be(DateTimeKind.Local);
-                result3.Should().Be(new DateTime(2012, 12, 25, 15, 14, 22, 0));
+                result3.Should().Be(new DateTime(2012, 12, 25, 15, 16, 22, 0));
                 result3.Kind.Should().Be(DateTimeKind.Unspecified);
             }
 
@@ -841,7 +858,7 @@ namespace FluentConversions.Tests.StringConversions
                     result2.Should().Be(new DateTime(2012, 12, 25, 0, 0, 0, 0));
                     result2.Kind.Should().Be(DateTimeKind.Unspecified);
                     result3.Should().Be(new DateTime(2012, 12, 25, 0, 0, 0, 0));
-                    result3.Kind.Should().Be(DateTimeKind.Unspecified);                    
+                    result3.Kind.Should().Be(DateTimeKind.Unspecified);
                 }
             }
 
@@ -851,6 +868,266 @@ namespace FluentConversions.Tests.StringConversions
                 using (new CultureInfoScope("en-GB"))
                 {
                     Assert.Throws<FormatException>(() => "25/12/2012".ConvertTo().DateTime.ParseExactInvariant("d"));
+                }
+            }
+        }
+
+        public class DateTimeOffsetTests
+        {
+            private TimeSpan DefaultOffset { get { return new TimeSpan(0, -8, 0, 0); } }
+
+            [Fact]
+            public void ValidDatePasses()
+            {
+                using (new CultureInfoScope("en-US"))
+                {
+                    var result = "12/25/2012".ConvertTo().DateTimeOffset.Parse();
+
+                    result.Should().Be(new DateTimeOffset(2012, 12, 25, 0, 0, 0, 0, DefaultOffset));
+                }
+            }
+
+            [Fact]
+            public void ValidDateTimeCulturePasses()
+            {
+                using (new CultureInfoScope("en-US"))
+                {
+                    var result = "2012/12/25 3:14:22.123 PM".ConvertTo().DateTimeOffset.ParseCulture();
+
+                    result.Should().Be(new DateTimeOffset(2012, 12, 25, 15, 14, 22, 123, DefaultOffset));
+                }
+            }
+
+            [Fact]
+            public void InvalidDateThrows()
+            {
+                Assert.Throws<FormatException>(() => "2012/25/12".ConvertTo().DateTimeOffset.Parse());
+            }
+
+            [Fact]
+            public void PassedCulturePasses()
+            {
+                var result = " 25/12/2012 ".ConvertTo().DateTimeOffset.Parse(new CultureInfo("en-GB"));
+
+                result.Should().Be(new DateTimeOffset(2012, 12, 25, 0, 0, 0, 0, DefaultOffset));
+            }
+
+            [Fact]
+            public void PassedStylePasses()
+            {
+                var result = "2012/12/25 15:14:22.123".ConvertTo().DateTimeOffset.Parse(new CultureInfo("en-GB"), DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeLocal);
+
+                result.Should().Be(new DateTimeOffset(2012, 12, 25, 15, 14, 22, 123, DefaultOffset));
+            }
+
+            [Fact]
+            public void ValidExactMatchPasses()
+            {
+                var result = "2012-12-25T15:14:22".ConvertTo().DateTimeOffset.ParseExact("s");
+
+                result.Should().Be(new DateTimeOffset(2012, 12, 25, 15, 14, 22, 0, DefaultOffset));
+            }
+
+            [Fact]
+            public void ValidExactMatchArrayPasses()
+            {
+                var result1 = "2012-12-25T15:14:22".ConvertTo().DateTimeOffset.ParseExact(new[] { "s", "o" });
+                var result2 = "2012-12-25T15:15:22.0900000-08:00".ConvertTo().DateTimeOffset.ParseExactCulture(new[] { "s", "o" });
+                var result3 = "2012-12-25 15:16:22Z".ConvertTo().DateTimeOffset.ParseExactInvariant(new[] { "s", "u" });
+
+                result1.Should().Be(new DateTimeOffset(2012, 12, 25, 15, 14, 22, 0, DefaultOffset));
+                result2.Should().Be(new DateTimeOffset(2012, 12, 25, 15, 15, 22, 90, DefaultOffset));
+                result3.Should().Be(new DateTimeOffset(2012, 12, 25, 15, 16, 22, 0, new TimeSpan(0, 0, 0, 0)));
+            }
+
+            [Fact]
+            public void InvalidExactMatchThrows()
+            {
+                Assert.Throws<FormatException>(() => "2012/12/25T15:14:22".ConvertTo().DateTimeOffset.ParseExact("s"));
+            }
+
+            [Fact]
+            public void InvariantsAreRespected()
+            {
+                using (new CultureInfoScope("en-GB"))
+                {
+                    var result1 = "12/25/2012".ConvertTo().DateTimeOffset.ParseInvariant();
+                    var result2 = "12/25/2012".ConvertTo().DateTimeOffset.ParseExactInvariant("d");
+                    var result3 = "25/12/2012".ConvertTo().DateTimeOffset.ParseExactCulture("d");
+
+                    result1.Should().Be(new DateTimeOffset(2012, 12, 25, 0, 0, 0, 0, DefaultOffset));
+                    result2.Should().Be(new DateTimeOffset(2012, 12, 25, 0, 0, 0, 0, DefaultOffset));
+                    result3.Should().Be(new DateTimeOffset(2012, 12, 25, 0, 0, 0, 0, DefaultOffset));
+                }
+            }
+
+            [Fact]
+            public void InvalidInvariantThrows()
+            {
+                using (new CultureInfoScope("en-GB"))
+                {
+                    Assert.Throws<FormatException>(() => "25/12/2012".ConvertTo().DateTimeOffset.ParseExactInvariant("d"));
+                }
+            }
+        }
+
+        public class TimeSpanTests
+        {
+            private TimeSpan ExpectedTimeSpan { get { return new TimeSpan(0, 2, 3, 4, 500); } }
+
+            [Fact]
+            public void ValidTimeSpanPasses()
+            {
+                using (new CultureInfoScope("en-US"))
+                {
+                    var result1 = "2:3:4.500".ConvertTo().TimeSpan.Parse();
+                    result1.Should().Be(ExpectedTimeSpan);
+                }
+
+                var result2 = "2:3:4.5".ConvertTo().TimeSpan.Parse(new CultureInfo("en-US"));
+                result2.Should().Be(ExpectedTimeSpan);
+            }
+
+            [Fact]
+            public void ValidTimeSpanCulturePasses()
+            {
+                using (new CultureInfoScope("fr-FR"))
+                {
+                    var result1 = "2:3:4,500".ConvertTo().TimeSpan.Parse();
+                    result1.Should().Be(ExpectedTimeSpan);
+                }
+
+                var result2 = "2:3:4,5".ConvertTo().TimeSpan.Parse(new CultureInfo("fr-FR"));
+                result2.Should().Be(ExpectedTimeSpan);
+            }
+
+            [Fact]
+            public void InvalidTimeSpanThrows()
+            {
+                Assert.Throws<FormatException>(() => "ABC".ConvertTo().TimeSpan.Parse());
+            }
+
+            [Fact]
+            public void NullTimeSpanThrows()
+            {
+                Assert.Throws<ArgumentNullException>(() => ((string)null).ConvertTo().TimeSpan.Parse());
+            }
+
+            [Fact]
+            public void ValidExactMatchPasses()
+            {
+                using (new CultureInfoScope("en-US"))
+                {
+                    var result1 = "2:3:4.500".ConvertTo().TimeSpan.ParseExact("g");
+                    result1.Should().Be(ExpectedTimeSpan);
+                }
+
+                var result2 = "2:3:4.5".ConvertTo().TimeSpan.ParseExact("g", new CultureInfo("en-US"));
+                result2.Should().Be(ExpectedTimeSpan);
+            }
+
+            [Fact]
+            public void ExactStyleIsRespected()
+            {
+                var expected = new TimeSpan(0, -2, -3, -4, -500);
+                using (new CultureInfoScope("en-US"))
+                {
+                    var result1 = "2:3:4.500".ConvertTo().TimeSpan.ParseExact(new[] { "h':'m':'s'.'fff" }, TimeSpanStyles.AssumeNegative);
+                    result1.Should().Be(expected);
+                }
+            }
+
+            [Fact]
+            public void ValidExactMatchArrayPasses()
+            {
+                var result1 = "2:3:4.500".ConvertTo().TimeSpan.ParseExact(new[] { "g", "G" }, new CultureInfo("en-US"));
+
+                TimeSpan result2;
+                TimeSpan result3;
+
+                using (new CultureInfoScope("en-US"))
+                {
+                    result2 = "0:2:3:4.5000000".ConvertTo().TimeSpan.ParseExactCulture(new[] { "g", "G" });
+                }
+
+                using (new CultureInfoScope("fr-FR"))
+                {
+                    result3 = "2:3:4.5".ConvertTo().TimeSpan.ParseExactInvariant(new[] { "g", "G" });
+                }
+
+                result1.Should().Be(ExpectedTimeSpan);
+                result2.Should().Be(ExpectedTimeSpan);
+                result3.Should().Be(ExpectedTimeSpan);
+            }
+
+            [Fact]
+            public void InvalidExactMatchThrows()
+            {
+                Assert.Throws<FormatException>(() => "ABC".ConvertTo().TimeSpan.ParseExact("g"));
+            }
+
+            [Fact]
+            public void InvalidFormatMatchThrows()
+            {
+                Assert.Throws<FormatException>(() => "2:3:4.500".ConvertTo().TimeSpan.ParseExact("z"));
+            }
+
+            [Fact]
+            public void NullExactMatchThrows()
+            {
+                Assert.Throws<ArgumentNullException>(() => ((string)null).ConvertTo().TimeSpan.ParseExact("g"));
+            }
+
+            [Fact]
+            public void ParseCulturePasses()
+            {
+                using (new CultureInfoScope("fr-FR"))
+                {
+                    var result = "2:3:4,5".ConvertTo().TimeSpan.ParseCulture();
+                    result.Should().Be(ExpectedTimeSpan);
+
+                    // BAF - For some reason the line below isn't working.  I have verified it is not an issue with my code as I am correctly
+                    // routing the current culture through.  It is possible that the culture sensitive version of TimeSpan.Parse allows
+                    // both the culture's separator (which is a comma for France) as well as the invariant (or US) separator which is a period.
+                    // However, that doesn't fit the documentation on MSDN so it may be an error in their code.  Also, TimeSpan.ParseExact seems
+                    // to work perfectly.
+                    ////Assert.Throws<FormatException>(() => "2:3:4.5".ConvertTo().TimeSpan.ParseCulture());
+                }
+            }
+
+            [Fact]
+            public void ParseInvariantPasses()
+            {
+                using (new CultureInfoScope("fr-FR"))
+                {
+                    var result = "2:3:4.5".ConvertTo().TimeSpan.ParseInvariant();
+                    result.Should().Be(ExpectedTimeSpan);
+
+                    Assert.Throws<FormatException>(() => "2:3:4,5".ConvertTo().TimeSpan.ParseInvariant());
+                }
+            }
+
+            [Fact]
+            public void ParseExactCulturePasses()
+            {
+                using (new CultureInfoScope("fr-FR"))
+                {
+                    var result = "2:3:4,5".ConvertTo().TimeSpan.ParseExactCulture("g");
+                    result.Should().Be(ExpectedTimeSpan);
+
+                    Assert.Throws<FormatException>(() => "2:3:4.5".ConvertTo().TimeSpan.ParseExactCulture("g"));
+                }
+            }
+
+            [Fact]
+            public void ParseExactInvariantPasses()
+            {
+                using (new CultureInfoScope("fr-FR"))
+                {
+                    var result = "2:3:4.5".ConvertTo().TimeSpan.ParseExactInvariant("g");
+                    result.Should().Be(ExpectedTimeSpan);
+
+                    Assert.Throws<FormatException>(() => "2:3:4,5".ConvertTo().TimeSpan.ParseExactInvariant("g"));
                 }
             }
         }

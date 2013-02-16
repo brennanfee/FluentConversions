@@ -77,6 +77,10 @@
     <Compile Include="StringConversions\DateTimeConverters\DateTimeOffsetConversionsStandard.cs" />
     <Compile Include="StringConversions\DateTimeConverters\DateTimeConversionsStandard.cs" />
     <Compile Include="StringConversions\DateTimeConverters\DateTimeStringParser.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\TimeSpanConversionsDefault.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\TimeSpanConversionsNullable.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\TimeSpanConversionsStandard.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\TimeSpanStringParser.cs" />
     <Compile Include="StringConversions\DefaultStringConversions.cs" />
     <Compile Include="StringConversions\OtherConverters\EnumTools.cs" />
     <Compile Include="StringConversions\OtherConverters\GenericStringParser.cs" />

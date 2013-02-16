@@ -116,5 +116,10 @@ namespace FluentConversions.StringConversions
         {
             get { return new DateTimeOffsetConversionsNullable(_input); }
         }
+
+        public TimeSpanConversionsNullable TimeSpan
+        {
+            get { return new TimeSpanConversionsNullable(_input); }
+        }
     }
 }

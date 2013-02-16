@@ -18,7 +18,7 @@ namespace FluentConversions.StringConversions.OtherConverters
             _input = input;
         }
 
-        public object Parse(Type enumType, bool ignoreCase = true)
+        public object ParseByType(Type enumType, bool ignoreCase = true)
         {
             var result = Enum.Parse(enumType, _input, ignoreCase);
             EnumTools.ValidateResult(enumType, result, _input);

@@ -18,17 +18,13 @@ namespace FluentConversions.StringConversions.OtherConverters
             _input = input;
         }
 
-        public object Parse(Type enumType, bool ignoreCase = true)
+        public object ParseByType(Type enumType, bool ignoreCase = true)
         {
             // TODO: Localize
             if (enumType == null)
                 throw new ArgumentNullException("enumType");
             if (!enumType.IsEnum)
                 throw new ArgumentException("Type passed must be an enum.", "enumType");
-            if (_input == null)
-                throw new ArgumentNullException("String is null.", (Exception)null);
-            if (string.IsNullOrWhiteSpace(_input))
-                throw new ArgumentException("String is empty or only contains white space.");
 
             try
             {

@@ -70,8 +70,10 @@
     <Compile Include="CultureInfoScope.cs" />
     <Compile Include="FloatAssertions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\DateTimeStringParserTests.cs" />
+    <Compile Include="StringConversions\DateTimeConverters\TimeSpanStringParserTests.cs" />
     <Compile Include="StringConversions\DefaultStringConversionTests.cs" />
-    <Compile Include="StringConversions\GenericStringParserTests.cs" />
+    <Compile Include="StringConversions\OtherConverters\GenericStringParserTests.cs" />
     <Compile Include="StringConversions\NullableStringConversionTests.cs" />
     <Compile Include="StringConversions\StandardStringConversionTests.cs" />
   </ItemGroup>
