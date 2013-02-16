@@ -10,6 +10,9 @@ namespace FluentConversions.StringConversions
 {
     using System.Globalization;
     using System.Linq;
+    using FluentConversions.StringConversions.DateTimeConverters;
+    using FluentConversions.StringConversions.NumericConverters;
+    using FluentConversions.StringConversions.OtherConverters;
 
     public class NullableStringConversions
     {
@@ -20,519 +23,103 @@ namespace FluentConversions.StringConversions
             _input = input;
         }
 
-        public byte? Byte()
+        public GenericNumericConversionsNullable<byte> Byte
         {
-            return GenericStringParser.TryParseNullable<byte>(_input, byte.TryParse);
+            get { return new GenericNumericConversionsNullable<byte>(_input, byte.TryParse, NumberStyles.Integer); }
         }
 
-        public byte? Byte(IFormatProvider provider)
+        public GenericNumericConversionsNullable<short> Int16
         {
-            return Byte(NumberStyles.Integer, provider);
+            get { return new GenericNumericConversionsNullable<short>(_input, short.TryParse, NumberStyles.Integer); }
         }
 
-        public byte? Byte(NumberStyles style)
+        public GenericNumericConversionsNullable<int> Int32
         {
-            return Byte(style, CultureInfo.CurrentCulture);
+            get { return new GenericNumericConversionsNullable<int>(_input, int.TryParse, NumberStyles.Integer); }
         }
 
-        public byte? Byte(NumberStyles style, IFormatProvider provider)
+        public GenericNumericConversionsNullable<long> Int64
         {
-            return GenericStringParser.TryParseNullableNumeric<byte>(_input, style, provider, byte.TryParse);
-        }
-
-        public byte? ByteInvariant()
-        {
-            return Byte(CultureInfo.InvariantCulture);
-        }
-
-        public byte? ByteInvariant(NumberStyles style)
-        {
-            return Byte(style, CultureInfo.InvariantCulture);
-        }
-
-        public byte? ByteCulture()
-        {
-            return Byte(CultureInfo.CurrentCulture);
-        }
-
-        public byte? ByteCulture(NumberStyles style)
-        {
-            return Byte(style, CultureInfo.CurrentCulture);
-        }
-
-        public short? Int16()
-        {
-            return GenericStringParser.TryParseNullable<short>(_input, short.TryParse);
-        }
-
-        public short? Int16(IFormatProvider provider)
-        {
-            return Int16(NumberStyles.Integer, provider);
-        }
-
-        public short? Int16(NumberStyles style)
-        {
-            return Int16(style, CultureInfo.CurrentCulture);
-        }
-
-        public short? Int16(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<short>(_input, style, provider, short.TryParse);
-        }
-
-        public short? Int16Invariant()
-        {
-            return Int16(CultureInfo.InvariantCulture);
-        }
-
-        public short? Int16Invariant(NumberStyles style)
-        {
-            return Int16(style, CultureInfo.InvariantCulture);
-        }
-
-        public short? Int16Culture()
-        {
-            return Int16(CultureInfo.CurrentCulture);
-        }
-
-        public short? Int16Culture(NumberStyles style)
-        {
-            return Int16(style, CultureInfo.CurrentCulture);
-        }
-
-        public int? Int32()
-        {
-            return GenericStringParser.TryParseNullable<int>(_input, int.TryParse);
-        }
-
-        public int? Int32(IFormatProvider provider)
-        {
-            return Int32(NumberStyles.Integer, provider);
-        }
-
-        public int? Int32(NumberStyles style)
-        {
-            return Int32(style, CultureInfo.CurrentCulture);
-        }
-
-        public int? Int32(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<int>(_input, style, provider, int.TryParse);
-        }
-
-        public int? Int32Invariant()
-        {
-            return Int32(CultureInfo.InvariantCulture);
-        }
-
-        public int? Int32Invariant(NumberStyles style)
-        {
-            return Int32(style, CultureInfo.InvariantCulture);
-        }
-
-        public int? Int32Culture()
-        {
-            return Int32(CultureInfo.CurrentCulture);
-        }
-
-        public int? Int32Culture(NumberStyles style)
-        {
-            return Int32(style, CultureInfo.CurrentCulture);
-        }
-
-        public long? Int64()
-        {
-            return GenericStringParser.TryParseNullable<long>(_input, long.TryParse);
-        }
-
-        public long? Int64(IFormatProvider provider)
-        {
-            return Int64(NumberStyles.Integer, provider);
-        }
-
-        public long? Int64(NumberStyles style)
-        {
-            return Int64(style, CultureInfo.CurrentCulture);
-        }
-
-        public long? Int64(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<long>(_input, style, provider, long.TryParse);
-        }
-
-        public long? Int64Invariant()
-        {
-            return Int64(CultureInfo.InvariantCulture);
-        }
-
-        public long? Int64Invariant(NumberStyles style)
-        {
-            return Int64(style, CultureInfo.InvariantCulture);
-        }
-
-        public long? Int64Culture()
-        {
-            return Int64(CultureInfo.CurrentCulture);
-        }
-
-        public long? Int64Culture(NumberStyles style)
-        {
-            return Int64(style, CultureInfo.CurrentCulture);
+            get { return new GenericNumericConversionsNullable<long>(_input, long.TryParse, NumberStyles.Integer); }
         }
 
         [CLSCompliant(false)]
-        public sbyte? SByte()
+        public GenericNumericConversionsNullable<sbyte> SByte
         {
-            return GenericStringParser.TryParseNullable<sbyte>(_input, sbyte.TryParse);
+            get { return new GenericNumericConversionsNullable<sbyte>(_input, sbyte.TryParse, NumberStyles.Integer); }
         }
 
         [CLSCompliant(false)]
-        public sbyte? SByte(IFormatProvider provider)
+        public GenericNumericConversionsNullable<ushort> UInt16
         {
-            return SByte(NumberStyles.Integer, provider);
+            get { return new GenericNumericConversionsNullable<ushort>(_input, ushort.TryParse, NumberStyles.Integer); }
         }
 
         [CLSCompliant(false)]
-        public sbyte? SByte(NumberStyles style)
+        public GenericNumericConversionsNullable<uint> UInt32
         {
-            return SByte(style, CultureInfo.CurrentCulture);
+            get { return new GenericNumericConversionsNullable<uint>(_input, uint.TryParse, NumberStyles.Integer); }
         }
 
         [CLSCompliant(false)]
-        public sbyte? SByte(NumberStyles style, IFormatProvider provider)
+        public GenericNumericConversionsNullable<ulong> UInt64
         {
-            return GenericStringParser.TryParseNullableNumeric<sbyte>(_input, style, provider, sbyte.TryParse);
+            get { return new GenericNumericConversionsNullable<ulong>(_input, ulong.TryParse, NumberStyles.Integer); }
         }
 
-        [CLSCompliant(false)]
-        public sbyte? SByteInvariant()
+        public GenericNumericConversionsNullable<float> Single
         {
-            return SByte(CultureInfo.InvariantCulture);
+            get { return new GenericNumericConversionsNullable<float>(_input, float.TryParse, NumberStyles.Float | NumberStyles.AllowThousands); }
         }
 
-        [CLSCompliant(false)]
-        public sbyte? SByteInvariant(NumberStyles style)
+        public GenericNumericConversionsNullable<double> Double
         {
-            return SByte(style, CultureInfo.InvariantCulture);
+            get { return new GenericNumericConversionsNullable<double>(_input, double.TryParse, NumberStyles.Float | NumberStyles.AllowThousands); }
         }
 
-        [CLSCompliant(false)]
-        public sbyte? SByteCulture()
+        public GenericNumericConversionsNullable<decimal> Decimal
         {
-            return SByte(CultureInfo.CurrentCulture);
+            get { return new GenericNumericConversionsNullable<decimal>(_input, decimal.TryParse, NumberStyles.Number); }
         }
 
-        [CLSCompliant(false)]
-        public sbyte? SByteCulture(NumberStyles style)
+        public CurrencyConversionsNullable Currency
         {
-            return SByte(style, CultureInfo.CurrentCulture);
+            get { return new CurrencyConversionsNullable(_input); }
         }
 
-        [CLSCompliant(false)]
-        public ushort? UInt16()
+        public CharConversionsNullable Char
         {
-            return GenericStringParser.TryParseNullable<ushort>(_input, ushort.TryParse);
+            get { return new CharConversionsNullable(_input); }
         }
 
-        [CLSCompliant(false)]
-        public ushort? UInt16(IFormatProvider provider)
+        public BoolConversionsNullable Bool
         {
-            return UInt16(NumberStyles.Integer, provider);
+            get { return new BoolConversionsNullable(_input); }
         }
 
-        [CLSCompliant(false)]
-        public ushort? UInt16(NumberStyles style)
+        public GuidConversionsNullable Guid
         {
-            return UInt16(style, CultureInfo.CurrentCulture);
+            get { return new GuidConversionsNullable(_input); }
         }
 
-        [CLSCompliant(false)]
-        public ushort? UInt16(NumberStyles style, IFormatProvider provider)
+        public EnumConversionsNullable Enum
         {
-            return GenericStringParser.TryParseNullableNumeric<ushort>(_input, style, provider, ushort.TryParse);
+            get { return new EnumConversionsNullable(_input); }
         }
 
-        [CLSCompliant(false)]
-        public ushort? UInt16Invariant()
+        public DateTimeConversionsNullable DateTime
         {
-            return UInt16(CultureInfo.InvariantCulture);
+            get { return new DateTimeConversionsNullable(_input); }
         }
 
-        [CLSCompliant(false)]
-        public ushort? UInt16Invariant(NumberStyles style)
+        public DateTimeOffsetConversionsNullable DateTimeOffset
         {
-            return UInt16(style, CultureInfo.InvariantCulture);
+            get { return new DateTimeOffsetConversionsNullable(_input); }
         }
 
-        [CLSCompliant(false)]
-        public ushort? UInt16Culture()
+        public TimeSpanConversionsNullable TimeSpan
         {
-            return UInt16(CultureInfo.CurrentCulture);
-        }
-
-        [CLSCompliant(false)]
-        public ushort? UInt16Culture(NumberStyles style)
-        {
-            return UInt16(style, CultureInfo.CurrentCulture);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32()
-        {
-            return GenericStringParser.TryParseNullable<uint>(_input, uint.TryParse);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32(IFormatProvider provider)
-        {
-            return UInt32(NumberStyles.Integer, provider);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32(NumberStyles style)
-        {
-            return UInt32(style, CultureInfo.CurrentCulture);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<uint>(_input, style, provider, uint.TryParse);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32Invariant()
-        {
-            return UInt32(CultureInfo.InvariantCulture);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32Invariant(NumberStyles style)
-        {
-            return UInt32(style, CultureInfo.InvariantCulture);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32Culture()
-        {
-            return UInt32(CultureInfo.CurrentCulture);
-        }
-
-        [CLSCompliant(false)]
-        public uint? UInt32Culture(NumberStyles style)
-        {
-            return UInt32(style, CultureInfo.CurrentCulture);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64()
-        {
-            return GenericStringParser.TryParseNullable<ulong>(_input, ulong.TryParse);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64(IFormatProvider provider)
-        {
-            return UInt64(NumberStyles.Integer, provider);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64(NumberStyles style)
-        {
-            return UInt64(style, CultureInfo.CurrentCulture);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<ulong>(_input, style, provider, ulong.TryParse);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64Invariant()
-        {
-            return UInt64(CultureInfo.InvariantCulture);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64Invariant(NumberStyles style)
-        {
-            return UInt64(style, CultureInfo.InvariantCulture);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64Culture()
-        {
-            return UInt64(CultureInfo.CurrentCulture);
-        }
-
-        [CLSCompliant(false)]
-        public ulong? UInt64Culture(NumberStyles style)
-        {
-            return UInt64(style, CultureInfo.CurrentCulture);
-        }
-
-        public float? Single()
-        {
-            return GenericStringParser.TryParseNullable<float>(_input, float.TryParse);
-        }
-
-        public float? Single(IFormatProvider provider)
-        {
-            return Single(NumberStyles.Float | NumberStyles.AllowThousands, provider);
-        }
-
-        public float? Single(NumberStyles style)
-        {
-            return Single(style, CultureInfo.CurrentCulture);
-        }
-
-        public float? Single(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<float>(_input, style, provider, float.TryParse);
-        }
-
-        public float? SingleInvariant()
-        {
-            return Single(CultureInfo.InvariantCulture);
-        }
-
-        public float? SingleInvariant(NumberStyles style)
-        {
-            return Single(style, CultureInfo.InvariantCulture);
-        }
-
-        public float? SingleCulture()
-        {
-            return Single(CultureInfo.CurrentCulture);
-        }
-
-        public float? SingleCulture(NumberStyles style)
-        {
-            return Single(style, CultureInfo.CurrentCulture);
-        }
-
-        public double? Double()
-        {
-            return GenericStringParser.TryParseNullable<double>(_input, double.TryParse);
-        }
-
-        public double? Double(IFormatProvider provider)
-        {
-            return Double(NumberStyles.Float | NumberStyles.AllowThousands, provider);
-        }
-
-        public double? Double(NumberStyles style)
-        {
-            return Double(style, CultureInfo.CurrentCulture);
-        }
-
-        public double? Double(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<double>(_input, style, provider, double.TryParse);
-        }
-
-        public double? DoubleInvariant()
-        {
-            return Double(CultureInfo.InvariantCulture);
-        }
-
-        public double? DoubleInvariant(NumberStyles style)
-        {
-            return Double(style, CultureInfo.InvariantCulture);
-        }
-
-        public double? DoubleCulture()
-        {
-            return Double(CultureInfo.CurrentCulture);
-        }
-
-        public double? DoubleCulture(NumberStyles style)
-        {
-            return Double(style, CultureInfo.CurrentCulture);
-        }
-
-        public decimal? Decimal()
-        {
-            return GenericStringParser.TryParseNullable<decimal>(_input, decimal.TryParse);
-        }
-
-        public decimal? Decimal(IFormatProvider provider)
-        {
-            return Decimal(NumberStyles.Number, provider);
-        }
-
-        public decimal? Decimal(NumberStyles style)
-        {
-            return Decimal(style, CultureInfo.CurrentCulture);
-        }
-
-        public decimal? Decimal(NumberStyles style, IFormatProvider provider)
-        {
-            return GenericStringParser.TryParseNullableNumeric<decimal>(_input, style, provider, decimal.TryParse);
-        }
-
-        public decimal? DecimalInvariant()
-        {
-            return Decimal(CultureInfo.InvariantCulture);
-        }
-
-        public decimal? DecimalInvariant(NumberStyles style)
-        {
-            return Decimal(style, CultureInfo.InvariantCulture);
-        }
-
-        public decimal? DecimalCulture()
-        {
-            return Decimal(CultureInfo.CurrentCulture);
-        }
-
-        public decimal? DecimalCulture(NumberStyles style)
-        {
-            return Decimal(style, CultureInfo.CurrentCulture);
-        }
-
-        public decimal? Currency(bool round = false)
-        {
-            var result = Decimal(NumberStyles.Currency);
-            if (!result.HasValue)
-                return null;
-
-            return round ? Math.Round(result.Value, CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalDigits) : result;
-        }
-
-        public decimal? Currency(IFormatProvider provider, bool round = false)
-        {
-            var result = Decimal(NumberStyles.Currency, provider);
-            if (!result.HasValue)
-                return null;
-
-            if (round)
-            {
-                provider = provider ?? CultureInfo.CurrentCulture;
-                var numberFormat = (NumberFormatInfo)provider.GetFormat(typeof(NumberFormatInfo)) ?? CultureInfo.CurrentCulture.NumberFormat;
-                return Math.Round(result.Value, numberFormat.CurrencyDecimalDigits);
-            }
-
-            return result;
-        }
-
-        public decimal? CurrencyInvariant(bool round = false)
-        {
-            var result = Decimal(NumberStyles.Currency, CultureInfo.InvariantCulture);
-            if (!result.HasValue)
-                return null;
-
-            return round ? Math.Round(result.Value, CultureInfo.InvariantCulture.NumberFormat.CurrencyDecimalDigits) : result;
-        }
-
-        public decimal? CurrencyCulture(bool round = false)
-        {
-            var result = Decimal(NumberStyles.Currency, CultureInfo.CurrentCulture);
-            if (!result.HasValue)
-                return null;
-
-            return round ? Math.Round(result.Value, CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalDigits) : result;
+            get { return new TimeSpanConversionsNullable(_input); }
         }
     }
 }

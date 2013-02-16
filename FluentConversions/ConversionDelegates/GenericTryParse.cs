@@ -5,11 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Linq;
 
 namespace FluentConversions.ConversionDelegates
 {
-    using System;
-    using System.Linq;
-
     internal delegate bool GenericTryParse<T>(string value, out T result);
 }

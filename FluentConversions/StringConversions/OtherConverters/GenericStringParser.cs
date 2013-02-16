@@ -6,9 +6,9 @@
 
 using System;
 
-namespace FluentConversions.StringConversions
+namespace FluentConversions.StringConversions.OtherConverters
 {
-    using System.Globalization;
+    using System;
     using System.Linq;
     using FluentConversions.ConversionDelegates;
 
@@ -30,22 +30,6 @@ namespace FluentConversions.StringConversions
             return method(input, provider);
         }
 
-        public static T ParseNumeric<T>(string input, NumberStyles style, GenericParseNumeric<T> method)
-        {
-            if (method == null)
-                throw new ArgumentNullException("method");
-
-            return method(input, style);
-        }
-
-        public static T ParseNumericCulture<T>(string input, NumberStyles style, IFormatProvider provider, GenericParseNumericCulture<T> method)
-        {
-            if (method == null)
-                throw new ArgumentNullException("method");
-
-            return method(input, style, provider);
-        }
-
         public static T? TryParseNullable<T>(string value, GenericTryParse<T> method) where T : struct
         {
             if (method == null)
@@ -58,19 +42,6 @@ namespace FluentConversions.StringConversions
             return result;
         }
 
-        public static T? TryParseNullableNumeric<T>(string value, NumberStyles style, IFormatProvider provider, GenericTryParseNumeric<T> method)
-            where T : struct
-        {
-            if (method == null)
-                throw new ArgumentNullException("method");
-
-            T result;
-            if (!method(value, style, provider, out result))
-                return null;
-
-            return result;
-        }
-
         public static T TryParseDefault<T>(string value, T defaultValue, GenericTryParse<T> method)
         {
             if (method == null)
@@ -78,16 +49,6 @@ namespace FluentConversions.StringConversions
 
             T result;
             return method(value, out result) ? result : defaultValue;
-        }
-
-        public static T TryParseDefaultNumeric<T>(
-            string value, NumberStyles style, IFormatProvider provider, T defaultValue, GenericTryParseNumeric<T> method)
-        {
-            if (method == null)
-                throw new ArgumentNullException("method");
-
-            T result;
-            return method(value, style, provider, out result) ? result : defaultValue;
         }
     }
 }
