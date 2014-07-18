@@ -131,3 +131,10 @@ Ankh.NoLoad
 # SublimeText project files
 *.sublime-project
 *.sublime-workspace
+
+# Ignore GhostDoc files
+*.GhostDoc.xml
+
+# Ignore sass cache
+.sass-cache/
+

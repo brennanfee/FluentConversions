@@ -1,17 +1,30 @@
 @echo off
-set TARGETS=%1
+set EXTRA_TARGETS=%1
 :param_loop
 shift
 if [%1]==[] goto after_loop
-set TARGETS=%TARGETS%;%1
+set EXTRA_TARGETS=%EXTRA_TARGETS%;%1
 goto param_loop
 :after_loop
-IF "%TARGETS%"=="" SET TARGETS=Build
+IF NOT "%EXTRA_TARGETS%"=="" set EXTRA_TARGETS="%EXTRA_TARGETS%;"
 
 SET ERR=0
 
+SET SLN_FILE=""
+FOR %%f IN (*.msbuild) DO (
+    SET SLN_FILE=%%f
+    goto after_sln_search
+)
+
+:after_sln_search
+
+IF %SLN_FILE%=="" (
+    ECHO ERROR: No solution could be found!!!
+    EXIT /B 1
+)
+
 DEL build.log
-%windir%\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe FluentAssertions.msbuild "/t:%TARGETS%" /fileLogger /fileloggerparameters:LogFile=build.log;Verbosity=normal;Encoding=UTF-8
+%windir%\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe %SLN_FILE% /m /nr:false "/t:%EXTRA_TARGETS%Build" /fileLogger /fileloggerparameters:LogFile=.build\build.log;Verbosity=normal;Encoding=UTF-8
 if NOT "%ERRORLEVEL%"=="0" set ERR=%ERRORLEVEL%
-COPY build.log Builds
+COPY .build\build.log Builds
 EXIT /B %ERR%
