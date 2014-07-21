@@ -23,7 +23,7 @@ IF %SLN_FILE%=="" (
     EXIT /B 1
 )
 
-DEL build.log
+DEL .build\build.log
 %windir%\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe %SLN_FILE% /m /nr:false "/t:%EXTRA_TARGETS%Build" /fileLogger /fileloggerparameters:LogFile=.build\build.log;Verbosity=normal;Encoding=UTF-8
 if NOT "%ERRORLEVEL%"=="0" set ERR=%ERRORLEVEL%
 COPY .build\build.log Builds

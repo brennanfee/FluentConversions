@@ -23,6 +23,7 @@ IF %SLN_FILE%=="" (
     EXIT /B 1
 )
 
+DEL .build\clean.log
 %windir%\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe %SLN_FILE% /m /nr:false "/t:%EXTRA_TARGETS%Clean" /fileLogger /fileloggerparameters:LogFile=.build\clean.log;Verbosity=normal;Encoding=UTF-8
 if NOT "%ERRORLEVEL%"=="0" set ERR=%ERRORLEVEL%
 EXIT /B %ERR%
