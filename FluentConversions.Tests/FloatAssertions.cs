@@ -11,8 +11,6 @@ namespace FluentConversions.Tests
 {
     public static class FloatAssertions
     {
-        // TODO: Convert this to work with FluentAssertions ( result.Should().BeAlmostEqual() )
-
         public static bool AlmostEqual(float first, float second, int maxDeltaBits = 1000)
         {
             // Uses 2s compliment method

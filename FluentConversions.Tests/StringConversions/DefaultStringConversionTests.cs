@@ -560,7 +560,7 @@ namespace FluentConversions.Tests.StringConversions
 
         public class GuidTests
         {
-            private Guid DefaultGuid { get { return new Guid("{C1035134-94DD-4771-B1BA-B771440A9953}"); } }
+            private static Guid DefaultGuid { get { return new Guid("{C1035134-94DD-4771-B1BA-B771440A9953}"); } }
 
             [Fact]
             public void ValidGuidPasses()
@@ -762,7 +762,7 @@ namespace FluentConversions.Tests.StringConversions
                 public void ValidGenericEnumTextPasses()
                 {
                     const string Value = "valuea";
-                    var result = Value.ConvertWithDefaultTo().Enum.Parse<SimpleEnum>(SimpleEnum.ValueB);
+                    var result = Value.ConvertWithDefaultTo().Enum.Parse(SimpleEnum.ValueB);
 
                     result.Should().Be(SimpleEnum.ValueA);
                 }
@@ -771,7 +771,7 @@ namespace FluentConversions.Tests.StringConversions
                 public void ValidGenericEnumNumberPasses()
                 {
                     const string Value = "0";
-                    var result = Value.ConvertWithDefaultTo().Enum.Parse<SimpleEnum>(SimpleEnum.ValueB);
+                    var result = Value.ConvertWithDefaultTo().Enum.Parse(SimpleEnum.ValueB);
 
                     result.Should().Be(SimpleEnum.ValueA);
                 }
@@ -788,7 +788,7 @@ namespace FluentConversions.Tests.StringConversions
                 public void InvalidGenericEnumNumberReturnsDefault()
                 {
                     const string Value = "10";
-                    var result = Value.ConvertWithDefaultTo().Enum.Parse<SimpleEnum>(SimpleEnum.ValueB);
+                    var result = Value.ConvertWithDefaultTo().Enum.Parse(SimpleEnum.ValueB);
                     result.Should().Be(SimpleEnum.ValueB);
                 }
 
@@ -796,7 +796,7 @@ namespace FluentConversions.Tests.StringConversions
                 public void ValidGenericFlagTextPasses()
                 {
                     const string Value = "all";
-                    var result = Value.ConvertWithDefaultTo().Enum.Parse<SimpleFlagEnum>(SimpleFlagEnum.ValueB);
+                    var result = Value.ConvertWithDefaultTo().Enum.Parse(SimpleFlagEnum.ValueB);
 
                     result.Should().Be(SimpleFlagEnum.All);
                 }
@@ -832,7 +832,7 @@ namespace FluentConversions.Tests.StringConversions
 
         public class DateTimeTests
         {
-            private DateTime DefaultDateTime { get { return new DateTime(2012, 1, 1, 0, 0, 0, 0); } }
+            private static DateTime DefaultDateTime { get { return new DateTime(2012, 1, 1, 0, 0, 0, 0); } }
 
             [Fact]
             public void ValidDatePasses()
@@ -951,9 +951,9 @@ namespace FluentConversions.Tests.StringConversions
 
         public class DateTimeOffsetTests
         {
-            private TimeSpan DefaultOffset { get { return new TimeSpan(0, -8, 0, 0); } }
+            private static TimeSpan DefaultOffset { get { return new TimeSpan(0, -8, 0, 0); } }
 
-            private DateTimeOffset DefaultDateTime { get { return new DateTimeOffset(2012, 1, 1, 0, 0, 0, 0, DefaultOffset); } }
+            private static DateTimeOffset DefaultDateTime { get { return new DateTimeOffset(2012, 1, 1, 0, 0, 0, 0, DefaultOffset); } }
 
             [Fact]
             public void ValidDatePasses()
@@ -1060,12 +1060,12 @@ namespace FluentConversions.Tests.StringConversions
 
         public class TimeSpanTests
         {
-            private TimeSpan ExpectedTimeSpan
+            private static TimeSpan ExpectedTimeSpan
             {
                 get { return new TimeSpan(0, 2, 3, 4, 500); }
             }
 
-            private TimeSpan DefaultTimeSpan
+            private static TimeSpan DefaultTimeSpan
             {
                 get { return new TimeSpan(0, 1, 30, 0, 0); }
             }

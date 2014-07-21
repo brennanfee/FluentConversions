@@ -960,7 +960,7 @@ namespace FluentConversions.Tests.StringConversions
 
         public class DateTimeOffsetTests
         {
-            private TimeSpan DefaultOffset { get { return new TimeSpan(0, -8, 0, 0); } }
+            private static TimeSpan DefaultOffset { get { return new TimeSpan(0, -8, 0, 0); } }
 
             [Fact]
             public void ValidDatePasses()
@@ -1066,7 +1066,7 @@ namespace FluentConversions.Tests.StringConversions
 
         public class TimeSpanTests
         {
-            private TimeSpan ExpectedTimeSpan { get { return new TimeSpan(0, 2, 3, 4, 500); } }
+            private static TimeSpan ExpectedTimeSpan { get { return new TimeSpan(0, 2, 3, 4, 500); } }
 
             [Fact]
             public void ValidTimeSpanPasses()
