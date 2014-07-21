@@ -1,0 +1,16 @@
+Todo items are items I want to do for sure.  Ideas are items I may or may not want to do in this project.
+
+TODO
+
+1.  Support bool conversions for more expanded "valid" scenario's:  yes/no, y/n, 0/1, t/f
+2.  Conversions from other sources (int to x, float to x, datetime to x, etc)
+3.  Enum, support "display values" as input.
+4.  Support datetime conversion to/from unix time.
+
+
+IDEAS
+
+1.  Support CSV conversion?  CSV string (or list of strings) out to a dynamic class or something?
+2.  Json conversions?  Json String to object, object to json string?
+3.  Rename ConvertWithDefaultTo to ConvertToWithDefault
+
