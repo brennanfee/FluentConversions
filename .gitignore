@@ -1,133 +1,163 @@
-# Build Folders
-[Bb]in/
-[Oo]bj/
+#### Git merge files
+*.orig
 
-# MSTest test results
-[Tt]est[Rr]esult*
+#### Git merge files
+
+#### Common temporary files
+*.bak
+*.log
+*.tmp
+*.temp
+
+#### Common temporary files
+
+#### VIM Files
+# Swap Files
+.*.swp
+.*.swo
+
+# Vim Backup Files
+~*
+
+#### VIM Files
+
+#### SublimeText project files
+*.sublime-workspace
+
+#### SublimeText project files
+
+#### Visaul Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+#### Visual Studio Code
+
+#### OS Junk files
+# Windows
+[Tt]humbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# MS Office temp files
+~$*
+*.xlk
+*.~vsdx
+
+# OSX
+*.DS_Store
+
+# Linux
+*~
+.Trash-*
+.directory
+
+#### OS Junk files
+
+#### Node
+node_modules
+
+#### Node
+
+#### Visual Studio IDE
+# Visual Studio 2015 directory
+.vs/
 
 # User-specific files
 *.suo
 *.user
+*.userosscache
 *.sln.docstates
-*.[Cc]ache
-
-# Backup and log files (optionally remove)
-*.bak
-*.log
-*.tmp
-
-# Nuget packages (should remove if not using package restore)
-[Pp]ackages/*
-![Pp]ackages/repositories.config
 
 # Build results
-[Bb]uild/
-[Bb]uilds/
-[Dd]eploy/
-[Pp]ublish/
-[Dd]ebug*/
-[Rr]elease*/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
 x64/
-*_i.c
-*_p.c
-*.ilk
-*.meta
-*.obj
-*.pch
-*.pdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-.builds
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
 
-# Publish Web Output (might need to be removed for VS2012)
-*.Publish.xml
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
 
-# Windows Azure Build Output
-csx
-*.build.csdef
-*.azurePubxml
+# SQL Server Project cache file
+*.dbmdl
 
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
+# Chutzpah Test files
+_Chutzpah*
 
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
+# Web projects & Web Workbench
+.sass-cache/
 
-# Guidance Automation Toolkit
-*.gpState
+# NuGet Packages
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/repositories.config
+!**/[Pp]ackages/build/
 
-# JetBrains tools (ReSharper, DotCover, etc.)
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!*.[Cc]ache/
+
+# Ignore WCF Datasource files
+*.[Dd]atasource
+
+# Resharper
 _ReSharper.*/
-*/*.dotCover/*
+_ReSharperPlatform*/
 
-# NCrunch
-*.ncrunch*
-.*crunch*.local.xml
+# NDepend
+NDependOut/
 
-# Installshield output folder
-[Ee]xpress
+# Ignore GhostDoc files
+*.GhostDoc.xml
 
-# Ignore ExpressionWeb folders
-_vti_cnf/
-_vti_pvt/
+#### Visual Studio IDE
 
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
+#### JetBrains IDE's
+# User-specific files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
 
-# MS Office temp files
-~$*
+# Sensitive or high-curn files
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
 
-# OS Junk files
-[Tt]humbs.db
-*.DS_Store
-desktop.ini
+# Gradle
+.idea/gradle.xml
+.idea/libraries
 
-# Remnants from a Visual Studio project upgrade
-_UpgradeReport_Files/
-Backup*/
-UpgradeLog*.XML
+# Mongo Explorer plugin
+.idea/mongoSettings.xml
 
-# Ignore a private folder
-/Private/
+# File-based project format
+*.iws
+*.sln.iml
 
-# In case we are sharing the repo with SVN
-*.svn
-.svn
-.svn/
-Ankh.NoLoad
+# JIRA plugin
+atlassian-ide-plugin.xml
 
-# In case we are sharing the repo with TFS or Source Safe
-*.vspscc
-*.vssscc
-*.vscc
-*.scc
+# IntelliJ
+/out/
 
-# In case we are sharing the repo with Mercurial
-/.hg/
-.hgignore
+#### JetBrains IDE's
 
-# In case we are sharing the repo with Veracity
-/.vv/
-.vvignores
+#### Project Specific Settings
 
-# SublimeText project files
-*.sublime-project
-*.sublime-workspace
+#### Project Specific Settings

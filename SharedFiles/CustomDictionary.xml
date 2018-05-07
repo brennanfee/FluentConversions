@@ -11,6 +11,7 @@
       <Word>Ascii</Word>
       <Word>Trackable</Word>
       <Word>Recache</Word>
+      <Word>Poco</Word>
 
       <Word>accessor</Word>
       <Word>accessors</Word>
@@ -132,6 +133,7 @@
       <Acronym>EF</Acronym>
       <Acronym>DB</Acronym>
       <Acronym>UAT</Acronym>
+      <Acronym>UI</Acronym>
       <Acronym>ISO</Acronym>
       <Acronym>MVC</Acronym>
       <Acronym>ASCII</Acronym>

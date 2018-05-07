@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles", "{FB676307-6882-4045-966F-E2B0345535F3}"
 	ProjectSection(SolutionItems) = preProject
 		SharedFiles\CustomDictionary.xml = SharedFiles\CustomDictionary.xml
@@ -15,10 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles"
 		SharedFiles\RulesTestProjects.ruleset = SharedFiles\RulesTestProjects.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentConversions", "FluentConversions\FluentConversions.csproj", "{AA208538-2EB3-4C75-8FD0-C8382E3934F8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentConversions.Tests", "FluentConversions.Tests\FluentConversions.Tests.csproj", "{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B2AF31B6-A745-44AE-9102-B42314F80716}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -26,18 +24,34 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B2AF31
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentConversions", "FluentConversions\FluentConversions.csproj", "{AA208538-2EB3-4C75-8FD0-C8382E3934F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentConversions.Tests", "FluentConversions.Tests\FluentConversions.Tests.csproj", "{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{2D1F13D6-5945-43F5-A99E-D899214C0AFC}"
+	ProjectSection(SolutionItems) = preProject
+		Build.proj = Build.proj
+		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
+		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug-Fast|Any CPU = Debug-Fast|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AA208538-2EB3-4C75-8FD0-C8382E3934F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA208538-2EB3-4C75-8FD0-C8382E3934F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA208538-2EB3-4C75-8FD0-C8382E3934F8}.Debug-Fast|Any CPU.ActiveCfg = Debug-Fast|Any CPU
+		{AA208538-2EB3-4C75-8FD0-C8382E3934F8}.Debug-Fast|Any CPU.Build.0 = Debug-Fast|Any CPU
 		{AA208538-2EB3-4C75-8FD0-C8382E3934F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA208538-2EB3-4C75-8FD0-C8382E3934F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}.Debug-Fast|Any CPU.ActiveCfg = Debug-Fast|Any CPU
+		{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}.Debug-Fast|Any CPU.Build.0 = Debug-Fast|Any CPU
 		{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D19DA7FA-FCCC-4DB1-A926-31A1B180E393}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

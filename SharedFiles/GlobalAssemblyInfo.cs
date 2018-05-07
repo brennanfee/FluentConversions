@@ -10,7 +10,7 @@ using System.Resources;
 
 [assembly: AssemblyCompany("Brennan A. Fee")]
 [assembly: AssemblyProduct("Fluent Conversions")]
-[assembly: AssemblyCopyright("Copyright (c) 2013 Brennan A. Fee")]
+[assembly: AssemblyCopyright("Copyright (c) 2014 Brennan A. Fee")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]

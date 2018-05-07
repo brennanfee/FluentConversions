@@ -31,14 +31,12 @@ namespace FluentConversions.StringConversions.NumericConverters
             if (!result.HasValue)
                 return null;
 
-            if (round)
-            {
-                provider = provider ?? CultureInfo.CurrentCulture;
-                var numberFormat = (NumberFormatInfo)provider.GetFormat(typeof(NumberFormatInfo)) ?? CultureInfo.CurrentCulture.NumberFormat;
-                return Math.Round(result.Value, numberFormat.CurrencyDecimalDigits);
-            }
+            if (!round)
+                return result;
 
-            return result;
+            provider = provider ?? CultureInfo.CurrentCulture;
+            var numberFormat = (NumberFormatInfo)provider.GetFormat(typeof(NumberFormatInfo)) ?? CultureInfo.CurrentCulture.NumberFormat;
+            return Math.Round(result.Value, numberFormat.CurrencyDecimalDigits);
         }
 
         public decimal? ParseInvariant(bool round = false)
